@@ -1,0 +1,44 @@
+demo app available at https://cenoutreachdemo.onrender.com/dashboard/   
+
+usename :admin
+password cenoutreach
+
+Stack: Django 5.2 · PostgreSQL + pgvector · Chart.js · Python 3.11 · Gunicorn · Render
+
+Overview
+A full-stack web application built for the College of Engineering (CEN) at the American University of Sharjah to manage and track all academic outreach activities, industry partnerships, and collaborative engagements. The system serves as the single source of truth for MOUs, research projects, senior design sponsorships, executive education programs, internships, and faculty/industry contact relationships — replacing scattered spreadsheets with a centralized, queryable platform.
+
+Key Features
+Analytics Dashboard
+10+ interactive Chart.js panels with real-time data: engagement distribution, sector utilization, faculty leaderboard, company leaderboard, Al-Nukhba (MOA) status tracking, ISDP heatmap by sector × department, growth trends, and quick insights
+Date-filtered vs. all-time panels with visual badges distinguishing scope
+Industry-only filtering — AUS-sponsored entities automatically excluded from industry engagement metrics
+Smart deduplication — entities with multiple faculty are counted once via a lead-faculty assignment system
+Data Model
+15+ interconnected models: Company, Contact, MOU, MOA, Internship, Senior Design, Research Project, Executive Education, Outreach Activity, Alumni Network, Professional Certificate, Faculty, Student, Department, College
+Polymorphic relationships via Django GenericForeignKey — contacts and companies can be linked to any entity type without schema changes
+4 custom M2M through models (SeniorDesignFaculty, ResearchProjectFaculty, ExecutiveEducationFaculty, OutreachActivityFaculty) each with an is_lead flag that drives department attribution across all dashboard panels
+Semantic Search & Duplicate Detection
+pgvector embeddings (all-MiniLM-L6-v2, 384 dimensions) for company similarity search
+Fuzzy matching (fuzzywuzzy) on company names to prevent duplicate entries at save time
+Custom embed_companies management command for bulk embedding generation
+Admin Interface
+Full dark theme custom CSS over Django Admin
+Bulk CSV upload with transaction-safe processing, validation, and error reporting
+Custom access control — per-user, per-model permissions via a CustomPermission model with JSON field
+Audit trail on every record — created_by, updated_by, timestamps via AuditedModel base class
+Inline editing of faculty assignments with lead designation, contact associations, company associations
+Data Integrity
+Lead-faculty system ensures zero double-counting across all dashboard panels when a project involves faculty from multiple departments
+AUS exclusion applied at query level (company name + @aus.edu email domain) across all industry-facing panels
+All bulk operations wrapped in database transactions
+Technical Highlights
+Area	Detail
+Backend	Django 5.2 class-based admin, service layer for bulk ops, signals for automatic CompanyAssociation lifecycle
+Database	PostgreSQL with pgvector extension; 20+ migrations including data migrations for through-model backfills
+ML	sentence-transformers running at save time for company embeddings; cosine similarity duplicate detection
+Frontend	Chart.js 4.x with custom plugins for stacked bar inner labels, totals, and reusable plugin factory functions
+Deployment	Render (production + demo instance), WhiteNoise for static files, environment-variable-driven config
+Demo	Separate Render instance with 500+ seeded records (35 US companies, 160 SD projects, 50 faculty, etc.)
+Scale
+Production database covers ~5 years of CEN outreach activity across 6 engineering departments, tracking hundreds of senior design projects, MOUs, research collaborations, and industry contacts.

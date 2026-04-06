@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmad Farhat — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f1117; --surface: #1a1d27; --surface2: #222636;
+      --border: #2d3148;
+      --accent:  #4f8ef7;   /* blue  — institutional */
+      --accent2: #e05252;   /* red   — research */
+      --accent3: #3dbf8c;   /* green — applied/engineering */
+      --text: #e8eaf0; --muted: #8891aa;
+      --tag-bg: #1e2540; --tag-border: #3a4270;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+
+    /* ── Header — compact ── */
+    header { background: linear-gradient(135deg, #0d1224 0%, #1a1040 50%, #0d1224 100%); border-bottom: 1px solid var(--border); padding: 28px 24px 22px; text-align: center; }
+    .avatar-ring { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; background: linear-gradient(135deg, #fff 30%, #a0b4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
+    .tagline { font-size: 0.92rem; color: var(--muted); max-width: 640px; margin: 0 auto 12px; }
+    .header-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .badge { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--muted); padding: 3px 12px; border-radius: 20px; font-size: 0.79rem; }
+    .badge a { color: var(--accent); text-decoration: none; }
+    .badge a:hover { color: #7fb3ff; }
+
+    /* ── Skills strip ── */
+    .skills-section { max-width: 1160px; margin: 0 auto; padding: 28px 24px 0; }
+    .skills-grid { display: flex; flex-direction: column; gap: 10px; }
+    .skill-row { display: flex; align-items: flex-start; gap: 14px; }
+    .skill-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); min-width: 148px; padding-top: 3px; flex-shrink: 0; }
+    .skill-cat.lang  { color: var(--accent2); }
+    .skill-cat.ml    { color: var(--accent); }
+    .skill-cat.de    { color: var(--accent3); }
+    .skill-cat.mlops { color: #c084fc; }
+    .skill-cat.fw    { color: #f7a94f; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .skill-tag { background: var(--tag-bg); border: 1px solid var(--tag-border); color: #a0b4d8; font-size: 0.73rem; padding: 2px 9px; border-radius: 4px; }
+
+    /* ── Section Separator ── */
+    .section-sep { max-width: 1160px; margin: 44px auto 0; padding: 0 24px; display: flex; align-items: center; gap: 20px; }
+    .section-sep::before, .section-sep::after { content: ''; flex: 1; height: 1px; }
+    .section-sep::before { background: linear-gradient(90deg, transparent, var(--border)); }
+    .section-sep::after  { background: linear-gradient(90deg, var(--border), transparent); }
+    .section-sep-inner { text-align: center; flex-shrink: 0; }
+    .section-sep-title { font-size: 1.05rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    .section-sep-title.research     { color: var(--accent2); }
+    .section-sep-title.institutional{ color: var(--accent); }
+    .section-sep-title.applied      { color: var(--accent3); }
+    .section-sep-sub { font-size: 0.82rem; color: var(--muted); margin-top: 3px; letter-spacing: 0.5px; }
+
+    /* ── Grid — single column, all horizontal ── */
+    .projects { max-width: 1160px; margin: 0 auto; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 22px; }
+
+    /* ── Card ── */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: row; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(79,142,247,.12); }
+    .card.research:hover  { border-color: var(--accent2); box-shadow: 0 16px 40px rgba(224,82,82,.12); }
+    .card.applied:hover   { border-color: var(--accent3); box-shadow: 0 16px 40px rgba(61,191,140,.12); }
+
+    .card-image { position: relative; overflow: hidden; background: var(--surface2); width: 340px; min-width: 280px; flex-shrink: 0; cursor: zoom-in; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .4s; }
+    .card:hover .card-image img { transform: scale(1.03); }
+    .card-image-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--surface)); }
+    .card-image::after { content: '⤢ View'; position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,.55); color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; padding: 3px 9px; border-radius: 4px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .card:hover .card-image::after { opacity: 1; }
+
+    .card-body { padding: 26px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
+    .card-number { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+    .card-number.research      { color: var(--accent2); }
+    .card-number.institutional { color: var(--accent); }
+    .card-number.applied       { color: var(--accent3); }
+    .card h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .card-desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { background: var(--tag-bg); border: 1px solid var(--tag-border); color: #7ea8ff; font-size: 0.74rem; padding: 2px 9px; border-radius: 4px; }
+
+    .card-footer { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 6px; font-size: 0.83rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .1s; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-demo { background: var(--accent); color: #fff; }
+    .btn-demo:hover { background: #3a7de8; }
+    .btn-private { background: var(--surface2); border: 1px solid #3a4270; color: #4a5580; font-size: 0.76rem; cursor: default; padding: 6px 12px; border-radius: 6px; }
+    .btn svg { flex-shrink: 0; }
+
+    details { margin-top: 2px; }
+    summary { cursor: pointer; font-size: 0.8rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 5px; user-select: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '\25B6'; font-size: 0.58rem; transition: transform .2s; }
+    details[open] summary::before { transform: rotate(90deg); }
+    .details-content { margin-top: 10px; padding: 13px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.83rem; color: var(--muted); }
+    .details-content ul { padding-left: 16px; display: flex; flex-direction: column; gap: 5px; }
+    .details-content h4 { color: var(--text); margin-bottom: 7px; font-size: 0.86rem; }
+    .spec-grid { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin-top: 8px; }
+    .spec-key { color: var(--accent); font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+    .spec-val { color: var(--muted); font-size: 0.76rem; }
+
+    @media (max-width: 780px) {
+      .card { flex-direction: column; }
+      .card-image { width: 100%; min-width: unset; min-height: 200px; }
+      .skill-cat { min-width: 100px; }
+    }
+
+    .about-section { max-width: 760px; margin: 20px auto 60px; padding: 0 24px; text-align: center; }
+    .about-section h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .about-section p { color: var(--muted); font-size: 0.92rem; margin-bottom: 10px; }
+    footer { border-top: 1px solid var(--border); padding: 22px; text-align: center; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Lightbox ── */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.88); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 94vw; max-height: 92vh; border-radius: 8px; box-shadow: 0 32px 80px rgba(0,0,0,.7); object-fit: contain; }
+    #lightbox-close { position: fixed; top: 18px; right: 22px; font-size: 1.6rem; color: #fff; cursor: pointer; background: none; border: none; line-height: 1; opacity: .75; transition: opacity .15s; }
+    #lightbox-close:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="avatar-ring">AF</div>
+  <h1>Ahmad Farhat</h1>
+  <p class="tagline">Data Engineer &nbsp;·&nbsp; ML Practitioner &nbsp;·&nbsp; AI Systems Architect &nbsp;·&nbsp; Researcher</p>
+  <div class="header-meta">
+    <span class="badge">American &nbsp;·&nbsp; UAE Golden Visa</span>
+    <span class="badge">+971-50-316-3664</span>
+    <span class="badge"><a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></span>
+  </div>
+</header>
+
+<!-- ══ SKILLS ══ -->
+<div class="skills-section">
+  <div class="skills-grid">
+    <div class="skill-row">
+      <span class="skill-cat lang">Languages</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Bash</span><span class="skill-tag">R</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C++</span><span class="skill-tag">Java</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat ml">ML &amp; AI</span>
+      <div class="skill-tags">
+        <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Transformers</span><span class="skill-tag">VICReg</span><span class="skill-tag">NumPy / SciPy</span><span class="skill-tag">LangGraph</span><span class="skill-tag">RAG</span><span class="skill-tag">MCP</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat de">Data Engineering</span>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">pgvector</span><span class="skill-tag">Oracle</span><span class="skill-tag">Pandas</span><span class="skill-tag">ETL Pipelines</span><span class="skill-tag">D3.js</span><span class="skill-tag">Power BI</span><span class="skill-tag">Bloomberg BLPAPI</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat mlops">MLOps &amp; Infra</span>
+      <div class="skill-tags">
+        <span class="skill-tag">SLURM / HPC</span><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Git</span><span class="skill-tag">Linux</span><span class="skill-tag">FastAPI</span><span class="skill-tag">HDF5 / h5py</span><span class="skill-tag">ChromaDB</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat fw">Frameworks</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Django</span><span class="skill-tag">Sentence-Transformers</span><span class="skill-tag">NetworkX</span><span class="skill-tag">eScriptorium</span><span class="skill-tag">PWA / Service Workers</span><span class="skill-tag">Chart.js</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMPUTATIONAL RESEARCH ══ -->
+<div class="section-sep">
+  <div class="section-sep-inner">
+    <div class="section-sep-title research">Computational Research</div>
+    <div class="section-sep-sub">Topological Data Analysis &nbsp;·&nbsp; Computational Neuroscience</div>
+  </div>
+</div>
+<div class="projects">
+
+  <div class="card research">
+    <div class="card-image">
+      <img src="neurotopo.png" alt="NeuroTopo pipeline diagram" loading="lazy" data-lightbox="neurotopo.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number research">Research · Topological ML · HPC</div>
+      <h2>NeuroTopo — Large-Scale Neuronal Morphology Analysis</h2>
+      <p class="card-desc">End-to-end HPC pipeline processing ~286,000 reconstructed neurons (SWC format) to compute 8 topological Sholl descriptors and produce a 286,000×286,000 pairwise distance matrix (~164 GB, ~41 billion unique pairs) with O(1) lookup. Descriptor weights optimized via differential evolution over labeled neuronal classes. Published in PLOS Computational Biology Q1 (25 citations).</p>
+      <div class="card-tags">
+        <span class="tag">Python</span><span class="tag">NumPy / SciPy</span><span class="tag">HDF5/h5py</span>
+        <span class="tag">SLURM</span><span class="tag">HPC A100</span><span class="tag">TDA</span><span class="tag">NetworkX</span>
+      </div>
+      <details>
+        <summary>Technical architecture</summary>
+        <div class="details-content">
+          <h4>Pipeline stages</h4>
+          <ul>
+            <li>SWC parsing &amp; standardization — soma centering, graph reordering, node role classification</li>
+            <li>8 Sholl step-function descriptors: Branching Pattern, Tortuosity, Flux, Energy, Leaf, Wiring, Spread, TMD</li>
+            <li>Fixed-length vectorization: 8 × 50 = 400 float32 features per neuron stored in HDF5</li>
+            <li>Z-score normalization + PCA to 25D for clustering and classification</li>
+            <li>Block-wise upper-triangular distance matrix: 1,711 blocks at 5,000×5,000</li>
+            <li>Differential evolution weight optimizer: 92-worker deferred-update, permutation-tested p-values</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Dataset</span><span class="spec-val">~286,000 SWC neurons · ~41B unique pairs</span>
+            <span class="spec-key">Storage</span><span class="spec-val">~1.5 TB (8 descriptor matrices + combined ~164 GB)</span>
+            <span class="spec-key">HPC</span><span class="spec-val">96 vCPU · 349 GB RAM · SLURM job arrays · hpc6a.48xlarge</span>
+            <span class="spec-key">Published</span><span class="spec-val">PLOS Computational Biology Q1 · 25 citations</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <span class="btn-private">Repository available upon request</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card research">
+    <div class="card-image">
+      <img src="NeuronAtlas.png" alt="NeuronAtlas architecture" loading="lazy" data-lightbox="NeuronAtlas.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number research">Research · Deep Learning · Nature-target</div>
+      <h2>NeuronAtlas — Universal Neuron Embedding Atlas</h2>
+      <p class="card-desc">Self-supervised multimodal Transformer (12 layers, d=512, ~48.2M parameters) trained on 286,380 morphologically reconstructed neurons across 94 species. Learns a species-agnostic representation space enabling cross-species retrieval, morphological type discovery, and cell-type classification. Targeting Nature / Nature Methods publication.</p>
+      <div class="card-tags">
+        <span class="tag">PyTorch</span><span class="tag">Transformers</span><span class="tag">VICReg</span>
+        <span class="tag">Multimodal</span><span class="tag">AWS</span><span class="tag">286K neurons · 94 species</span>
+      </div>
+      <details>
+        <summary>Model &amp; training details</summary>
+        <div class="details-content">
+          <h4>Architecture</h4>
+          <ul>
+            <li>Pre-norm Transformer · 12 layers · 16 heads · d=512 · FFN 2048 · ~48.2M parameters</li>
+            <li>3 input modalities: Morphometrics (21D) · Principal Vectors (100D) · Sholl Descriptors (400D) → 57 tokens</li>
+            <li>Multi-objective: VICReg (invariance/variance/covariance) + masked reconstruction + supervised CE (94 species)</li>
+            <li>15-ablation systematic study; best ablation: supervised_only (morpho full)</li>
+            <li>Species Recall@1: 69.98% on held-out test; morphometrics dominate by ~11 percentage points</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Dataset</span><span class="spec-val">286,380 neurons · 94 species (mouse 52%, rat 21%, Drosophila 13%…)</span>
+            <span class="spec-key">Model</span><span class="spec-val">Pre-norm Transformer · 48.2M params · 512D [CLS] output</span>
+            <span class="spec-key">Best metric</span><span class="spec-val">Species Recall@1 = 69.98% on held-out test set</span>
+            <span class="spec-key">Target</span><span class="spec-val">Nature / Nature Methods publication</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <span class="btn-private">Repository available upon request</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ INSTITUTIONAL ANALYTICS ══ -->
+<div class="section-sep">
+  <div class="section-sep-inner">
+    <div class="section-sep-title institutional">Institutional Analytics</div>
+    <div class="section-sep-sub">Institutional Research &amp; Analytics</div>
+  </div>
+</div>
+<div class="projects">
+
+  <div class="card">
+    <div class="card-image">
+      <img src="research-benchmark-demo.png" alt="Research Analytics Benchmark Dashboard" loading="lazy" data-lightbox="research-benchmark-demo.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number institutional">Institutional · Research Intelligence</div>
+      <h2>Research Analytics Benchmark Dashboard</h2>
+      <p class="card-desc">University-wide research intelligence platform integrating Scopus, SciVal, OpenAlex, Crossref, and Unpaywall into a centralized PostgreSQL data warehouse. Provides senior leadership with live benchmarking against regional and global peer institutions — measuring publication output, journal quality (quartiles), collaboration networks, author productivity, and research trend forecasting — via interactive D3.js dashboards.</p>
+      <div class="card-tags">
+        <span class="tag">D3.js</span><span class="tag">PostgreSQL</span><span class="tag">Python ETL</span>
+        <span class="tag">Scopus API</span><span class="tag">OpenAlex</span><span class="tag">Bibliometrics</span><span class="tag">KPI frameworks</span>
+      </div>
+      <details>
+        <summary>What this platform does</summary>
+        <div class="details-content">
+          <ul>
+            <li>Automated ETL extracts, cleanses, and normalizes bibliometric &amp; citation data across multiple international universities</li>
+            <li>KPIs: publication output, journal quality (quartiles), collaboration networks, author productivity, research quality distribution</li>
+            <li>D3.js executive dashboards for peer benchmarking — used by senior leadership for strategic planning &amp; accreditation</li>
+            <li>Data governance workflows ensuring reproducibility and auditability of all performance metrics</li>
+          </ul>
+        </div>
+      </details>
+      <div class="card-footer">
+        <a class="btn btn-demo" href="https://research-benchmark-demo.pages.dev/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Demo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-image">
+      <img src="research-clusters-demo.png" alt="Research Clustering" loading="lazy" data-lightbox="research-clusters-demo.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number institutional">Institutional · ML Pipeline</div>
+      <h2>Research Clustering &amp; Thematic Visualization</h2>
+      <p class="card-desc">AI-powered pipeline applying dimensionality reduction (PCA) and unsupervised clustering to institutional publication corpora — mapping the research landscape to identify thematic strengths, gaps, and collaboration opportunities. Feeds into the benchmark dashboard for strategic foresight.</p>
+      <div class="card-tags">
+        <span class="tag">PCA</span><span class="tag">Clustering</span><span class="tag">Python</span>
+        <span class="tag">pgvector</span><span class="tag">NLP</span><span class="tag">Visualization</span>
+      </div>
+      <details>
+        <summary>Pipeline overview</summary>
+        <div class="details-content">
+          <ul>
+            <li>Publication abstracts encoded into semantic feature space using transformer-based embedding models</li>
+            <li>PCA dimensionality reduction + unsupervised clustering for 2D/3D research landscape visualization</li>
+            <li>Automated cluster labeling and thematic classification aligned with strategic priorities</li>
+            <li>Privacy-preserving: runs fully on-premise — no external API calls for sensitive institutional data</li>
+          </ul>
+        </div>
+      </details>
+      <div class="card-footer">
+        <a class="btn btn-demo" href="https://research-clusters-demo.pages.dev/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Demo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-image">
+      <img src="outreach.png" alt="Outreach Management Platform" loading="lazy" data-lightbox="outreach.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number institutional">Institutional · Full-Stack Platform</div>
+      <h2>Outreach Management Platform</h2>
+      <p class="card-desc">Production full-stack Django/PostgreSQL application centralizing all academic outreach, industry partnerships, MOUs, research projects, senior design sponsorships, executive education, internships, and faculty/industry contacts across 6 engineering departments — replacing scattered spreadsheets with a single queryable platform with semantic search and interactive analytics.</p>
+      <div class="card-tags">
+        <span class="tag">Django 5.2</span><span class="tag">PostgreSQL</span><span class="tag">pgvector</span>
+        <span class="tag">Sentence-Transformers</span><span class="tag">Chart.js</span><span class="tag">Semantic Search</span><span class="tag">Render</span>
+      </div>
+      <details>
+        <summary>Technical deep-dive</summary>
+        <div class="details-content">
+          <h4>Architecture highlights</h4>
+          <ul>
+            <li>15+ interconnected Django models; polymorphic relationships via <code>GenericForeignKey</code></li>
+            <li>4 custom M2M through-models each with <code>is_lead</code> flag — zero double-counting across all dashboard panels</li>
+            <li>Semantic deduplication: <code>all-MiniLM-L6-v2</code> (384-dim) + fuzzy matching at save time</li>
+            <li>10+ interactive Chart.js panels: engagement distribution, faculty leaderboard, ISDP heatmap, growth trends</li>
+            <li>Custom per-user, per-model access control; full audit trail via <code>AuditedModel</code> base class</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Backend</span><span class="spec-val">Django 5.2 CBV + service layer for bulk ops</span>
+            <span class="spec-key">Database</span><span class="spec-val">PostgreSQL + pgvector; 20+ migrations incl. data migrations</span>
+            <span class="spec-key">ML</span><span class="spec-val">Sentence-Transformers at save time; cosine similarity deduplication</span>
+            <span class="spec-key">Scale</span><span class="spec-val">5 years activity data; 500+ seeded demo records</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <a class="btn btn-demo" href="https://cenoutreachdemo.onrender.com/dashboard/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Demo
+        </a>
+        <span style="font-size:.74rem; color:var(--muted);">Login: admin / cenoutreach</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ AI & DATA ENGINEERING ══ -->
+<div class="section-sep">
+  <div class="section-sep-inner">
+    <div class="section-sep-title applied">AI &amp; Data Engineering</div>
+    <div class="section-sep-sub">Applied AI &nbsp;·&nbsp; Operations Research &nbsp;·&nbsp; Digital Humanities</div>
+  </div>
+</div>
+<div class="projects">
+
+  <div class="card applied">
+    <div class="card-image">
+      <img src="inventory_solver.png" alt="Inventory Solver architecture" loading="lazy" data-lightbox="inventory_solver.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number applied">Applied OR · Decision Support · Web Migration</div>
+      <h2>Inventory Solver — Browser-Based Operations Research Platform</h2>
+      <p class="card-desc">Full migration of a legacy Visual Basic inventory management system into a modern, client-side decision-support web application. Supports 10+ deterministic and stochastic OR models — including dynamic lot sizing, joint replenishment, quantity discount, continuous/periodic review, and newsvendor — with all computation executing entirely in the browser. Deployed as an offline-capable PWA with zero backend dependency.</p>
+      <div class="card-tags">
+        <span class="tag">JavaScript</span><span class="tag">Operations Research</span><span class="tag">PWA</span>
+        <span class="tag">Service Worker</span><span class="tag">OR Solver Engine</span><span class="tag">Data-Driven Config</span>
+      </div>
+      <details>
+        <summary>Architecture deep-dive</summary>
+        <div class="details-content">
+          <h4>4-layer architecture</h4>
+          <ul>
+            <li><strong>UI Layer:</strong> Dynamic input forms auto-generated from model configuration files — UI adapts automatically to each model's parameter schema</li>
+            <li><strong>Application Layer:</strong> State management, input validation, event handling, results rendering (inventory.bundle.js)</li>
+            <li><strong>Model Config Layer:</strong> All models externalized to CSV (solvers.csv, inputs.csv, outputs.csv) — new models added without modifying application code</li>
+            <li><strong>Solver Engine:</strong> InventorySolverJS — deterministic and stochastic models, mathematical formulations, reproducible outputs, fully browser-side</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Deterministic</span><span class="spec-val">Dynamic lot sizing · Economic lot scheduling · Joint replenishment · Quantity discounts · Resource-constrained optimization</span>
+            <span class="spec-key">Stochastic</span><span class="spec-val">Continuous review · Periodic review · Service-level optimization · Newsvendor (single-period)</span>
+            <span class="spec-key">Deployment</span><span class="spec-val">Offline PWA · service-worker caching · vendor-bundled assets · cross-device</span>
+            <span class="spec-key">Origin</span><span class="spec-val">Full migration from legacy Visual Basic application</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <a class="btn btn-demo" href="https://bitsdontbyte.github.io/ipsolver/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Demo
+        </a>
+        <span class="btn-private">Repository available upon request</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card applied">
+    <div class="card-image">
+      <img src="escriptorium.png" alt="eScriptorium HTR pipeline" loading="lazy" data-lightbox="escriptorium.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number applied">Applied AI · Digital Humanities</div>
+      <h2>eScriptorium HTR Pipeline — Historical Manuscript Digitization</h2>
+      <p class="card-desc">End-to-end Handwritten Text Recognition pipeline to digitize the Dublin Wide Streets Commissioners archive — 17,500 pages of 18th-century handwritten manuscripts. Achieved 86.4% character accuracy (CER 0.136) on pilot. Produced gold-standard PAGE-XML training datasets establishing the foundation for the first fully searchable digital edition of the archive.</p>
+      <div class="card-tags">
+        <span class="tag">eScriptorium</span><span class="tag">HTR</span><span class="tag">PAGE-XML</span>
+        <span class="tag">BLLA segmentation</span><span class="tag">Digital Humanities</span><span class="tag">Python</span>
+      </div>
+      <details>
+        <summary>Pipeline overview</summary>
+        <div class="details-content">
+          <ul>
+            <li>Configured and optimized eScriptorium for 17,500-page handwritten manuscript corpus</li>
+            <li>Document segmentation using BLLA base models with manual polygon corrections</li>
+            <li>Benchmarked multiple HTR models; pilot achieved CER 0.136 (86.4% char accuracy), WER 0.396</li>
+            <li>Gold-standard PAGE-XML datasets via meticulous line segmentation and transcription workflows</li>
+            <li>Foundation for first comprehensive searchable digital edition linked to scanned archive images</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Corpus</span><span class="spec-val">17,500 manuscript pages · Dublin Wide Streets Commissioners (1750s–1840s)</span>
+            <span class="spec-key">Accuracy</span><span class="spec-val">CER 0.136 (86.4% char) · WER 0.396 on pilot set</span>
+            <span class="spec-key">Output</span><span class="spec-val">Gold-standard PAGE-XML · scalable HTR training datasets</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <span class="btn-private">Private Archive Project</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="section-sep" style="margin-top:40px; margin-bottom:0;">
+  <div class="section-sep-inner">
+    <div class="section-sep-title" style="color:var(--muted); font-size:0.85rem; letter-spacing:2px;">About</div>
+  </div>
+</div>
+<div class="about-section" style="margin-top:32px;">
+  <h3>Ahmad Farhat</h3>
+  <p>Data engineer, machine learning practitioner, and AI systems architect with expertise spanning the full ML lifecycle — from distributed data pipeline design and large-scale processing to model training, productionization, and MLOps. Experienced deploying production AI platforms, institutional analytics systems, and research-grade ML infrastructure across cloud and on-premise environments.</p>
+  <p>Active researcher with peer-reviewed publications in Scopus-indexed Q1 journals — <a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></p>
+</div>
+
+<footer>
+  <p>Ahmad Farhat &nbsp;·&nbsp; +971-50-316-3664 &nbsp;·&nbsp;
+    <a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+  </p>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Close">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="Full size diagram" />
+</div>
+
+<script>
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('[data-lightbox]').forEach(img => {
+    img.parentElement.addEventListener('click', () => {
+      lbImg.src = img.getAttribute('data-lightbox');
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
