@@ -22,9 +22,9 @@
     header { background: linear-gradient(135deg, #0d1224 0%, #1a1040 50%, #0d1224 100%); border-bottom: 1px solid var(--border); padding: 28px 24px 22px; text-align: center; }
     .avatar-ring { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; }
     header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; background: linear-gradient(135deg, #fff 30%, #a0b4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
-    .tagline { font-size: 0.92rem; color: var(--muted); max-width: 640px; margin: 0 auto 12px; line-height: 1.8; }
+    .tagline { font-size: 1.08rem; font-weight: 600; color: var(--accent2); max-width: 640px; margin: 0 auto 12px; line-height: 1.8; letter-spacing: 0.3px; }
     .header-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
-    .badge { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--muted); padding: 3px 12px; border-radius: 20px; font-size: 0.79rem; }
+    .badge { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--accent); padding: 3px 12px; border-radius: 20px; font-size: 0.79rem; }
     .badge a { color: var(--accent); text-decoration: none; }
     .badge a:hover { color: #7fb3ff; }
 
@@ -43,9 +43,12 @@
 
     /* ── Section Separator ── */
     .section-sep { max-width: 1480px; margin: 44px auto 0; padding: 0 24px; display: flex; align-items: center; gap: 20px; }
-    .section-sep::before, .section-sep::after { content: ''; flex: 1; height: 1px; }
-    .section-sep::before { background: linear-gradient(90deg, transparent, var(--border)); }
-    .section-sep::after  { background: linear-gradient(90deg, var(--border), transparent); }
+    .section-sep::before, .section-sep::after { content: ''; flex: 1; height: 3px; border-radius: 2px; }
+    .section-sep::before { background: linear-gradient(90deg, transparent, var(--sep-color, var(--border))); }
+    .section-sep::after  { background: linear-gradient(90deg, var(--sep-color, var(--border)), transparent); }
+    .section-sep.research     { --sep-color: var(--accent2); }
+    .section-sep.institutional{ --sep-color: var(--accent); }
+    .section-sep.applied      { --sep-color: var(--accent3); }
     .section-sep-inner { text-align: center; flex-shrink: 0; }
     .section-sep-title { font-size: 1.05rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
     .section-sep-title.research     { color: var(--accent2); }
@@ -152,11 +155,12 @@
 
 <!-- ══ HEADER ══ -->
 <header>
-  <h1>Ahmad Farhat</h1>
+  <h1>Ahmad Farhat Portfolio</h1>
   <p class="tagline">Data Engineer &nbsp;·&nbsp; ML Practitioner &nbsp;·&nbsp; AI Systems Architect &nbsp;·&nbsp; Researcher</p>
   <div class="header-meta">
     <span class="badge">American &nbsp;·&nbsp; UAE Golden Visa</span>
     <span class="badge">+971-50-316-3664</span>
+    <span class="badge"><a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a></span>
     <span class="badge"><a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></span>
   </div>
 </header>
@@ -198,7 +202,7 @@
 </div>
 
 <!-- ══ COMPUTATIONAL RESEARCH ══ -->
-<div class="section-sep">
+<div class="section-sep research">
   <div class="section-sep-inner">
     <div class="section-sep-title research">Computational Research</div>
     <div class="section-sep-sub">Topological Data Analysis &nbsp;·&nbsp; Computational Neuroscience</div>
@@ -286,7 +290,7 @@
 </div>
 
 <!-- ══ INSTITUTIONAL ANALYTICS ══ -->
-<div class="section-sep">
+<div class="section-sep institutional">
   <div class="section-sep-inner">
     <div class="section-sep-title institutional">Institutional Analytics</div>
     <div class="section-sep-sub">Institutional Research &amp; Analytics</div>
@@ -405,13 +409,49 @@
 </div>
 
 <!-- ══ AI & DATA ENGINEERING ══ -->
-<div class="section-sep">
+<div class="section-sep applied">
   <div class="section-sep-inner">
     <div class="section-sep-title applied">AI &amp; Data Engineering</div>
     <div class="section-sep-sub">Applied AI &nbsp;·&nbsp; Operations Research &nbsp;·&nbsp; Digital Humanities</div>
   </div>
 </div>
 <div class="projects">
+
+  <div class="card applied">
+    <div class="card-image">
+      <img src="escriptorium.png" alt="eScriptorium HTR pipeline" loading="lazy" data-lightbox="escriptorium.png" />
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number applied">Applied AI · Digital Humanities</div>
+      <h2>eScriptorium HTR Pipeline — Historical Manuscript Digitization</h2>
+      <p class="card-desc">End-to-end Handwritten Text Recognition pipeline to digitize the Dublin Wide Streets Commissioners archive — 17,500 pages of 18th-century handwritten manuscripts. Achieved 86.4% character accuracy (CER 0.136) on pilot. Produced gold-standard PAGE-XML training datasets establishing the foundation for the first fully searchable digital edition of the archive.</p>
+      <div class="card-tags">
+        <span class="tag">eScriptorium</span><span class="tag">HTR</span><span class="tag">PAGE-XML</span>
+        <span class="tag">BLLA segmentation</span><span class="tag">Digital Humanities</span><span class="tag">Python</span>
+      </div>
+      <details>
+        <summary>Pipeline overview</summary>
+        <div class="details-content">
+          <ul>
+            <li>Configured and optimized eScriptorium for 17,500-page handwritten manuscript corpus</li>
+            <li>Document segmentation using BLLA base models with manual polygon corrections</li>
+            <li>Benchmarked multiple HTR models; pilot achieved CER 0.136 (86.4% char accuracy), WER 0.396</li>
+            <li>Gold-standard PAGE-XML datasets via meticulous line segmentation and transcription workflows</li>
+            <li>Foundation for first comprehensive searchable digital edition linked to scanned archive images</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Corpus</span><span class="spec-val">17,500 manuscript pages · Dublin Wide Streets Commissioners (1750s–1840s)</span>
+            <span class="spec-key">Accuracy</span><span class="spec-val">CER 0.136 (86.4% char) · WER 0.396 on pilot set</span>
+            <span class="spec-key">Output</span><span class="spec-val">Gold-standard PAGE-XML · scalable HTR training datasets</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <span class="btn-private">Private Archive Project</span>
+      </div>
+    </div>
+  </div>
 
   <div class="card applied">
     <div class="card-image">
@@ -450,42 +490,6 @@
           Launch App
         </a>
         <span class="btn-private">Repository available upon request</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="card applied">
-    <div class="card-image">
-      <img src="escriptorium.png" alt="eScriptorium HTR pipeline" loading="lazy" data-lightbox="escriptorium.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number applied">Applied AI · Digital Humanities</div>
-      <h2>eScriptorium HTR Pipeline — Historical Manuscript Digitization</h2>
-      <p class="card-desc">End-to-end Handwritten Text Recognition pipeline to digitize the Dublin Wide Streets Commissioners archive — 17,500 pages of 18th-century handwritten manuscripts. Achieved 86.4% character accuracy (CER 0.136) on pilot. Produced gold-standard PAGE-XML training datasets establishing the foundation for the first fully searchable digital edition of the archive.</p>
-      <div class="card-tags">
-        <span class="tag">eScriptorium</span><span class="tag">HTR</span><span class="tag">PAGE-XML</span>
-        <span class="tag">BLLA segmentation</span><span class="tag">Digital Humanities</span><span class="tag">Python</span>
-      </div>
-      <details>
-        <summary>Pipeline overview</summary>
-        <div class="details-content">
-          <ul>
-            <li>Configured and optimized eScriptorium for 17,500-page handwritten manuscript corpus</li>
-            <li>Document segmentation using BLLA base models with manual polygon corrections</li>
-            <li>Benchmarked multiple HTR models; pilot achieved CER 0.136 (86.4% char accuracy), WER 0.396</li>
-            <li>Gold-standard PAGE-XML datasets via meticulous line segmentation and transcription workflows</li>
-            <li>Foundation for first comprehensive searchable digital edition linked to scanned archive images</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Corpus</span><span class="spec-val">17,500 manuscript pages · Dublin Wide Streets Commissioners (1750s–1840s)</span>
-            <span class="spec-key">Accuracy</span><span class="spec-val">CER 0.136 (86.4% char) · WER 0.396 on pilot set</span>
-            <span class="spec-key">Output</span><span class="spec-val">Gold-standard PAGE-XML · scalable HTR training datasets</span>
-          </div>
-        </div>
-      </details>
-      <div class="card-footer">
-        <span class="btn-private">Private Archive Project</span>
       </div>
     </div>
   </div>
