@@ -299,6 +299,54 @@
 <div class="projects">
 
   <div class="card">
+    <div class="card-image" style="height:300px; cursor:pointer;" onclick="window.open('research_analytics_architecture.html','_blank')" title="Click to view full architecture diagram">
+      <div style="position:absolute; inset:0; overflow:hidden; background:#08090d;">
+        <iframe src="research_analytics_architecture.html"
+                style="width:1440px; height:1200px; transform:scale(0.25); transform-origin:top left; border:none; pointer-events:none;"
+                scrolling="no" tabindex="-1" loading="lazy">
+        </iframe>
+      </div>
+      <div class="card-image-overlay"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number institutional">Institutional · Full-Stack · Data Engineering</div>
+      <h2>Institutional Research Analytics Platform</h2>
+      <p class="card-desc">University-wide research intelligence platform integrating Scopus, SciVal, Crossref, and OpenAlex into a centralized PostgreSQL data warehouse across five purpose-built schemas. A Python ingestion pipeline normalizes raw vendor exports into structured entities with full diff-based idempotency and column-level provenance tracking. FastAPI backend exposes eight domain routers powering a Next.js 14 management portal with complete CRUD for faculty, research personnel, grants, and patents — deployed on Render.com.</p>
+      <div class="card-tags">
+        <span class="tag">PostgreSQL</span><span class="tag">FastAPI</span><span class="tag">Next.js 14</span>
+        <span class="tag">Scopus API</span><span class="tag">Python ETL</span><span class="tag">Render.com</span><span class="tag">SciVal</span><span class="tag">Crossref</span>
+      </div>
+      <details>
+        <summary>Architecture overview</summary>
+        <div class="details-content">
+          <h4>System breakdown</h4>
+          <ul>
+            <li>Five PostgreSQL schemas: core (audit/provenance), scival, scopus, research (normalized), internal (form data)</li>
+            <li>Diff-based idempotent ingestion — re-importing the same file produces zero DB changes; every column delta logged to core.change_log</li>
+            <li>Scopus Abstract API enrichment for author affiliations, ORCID extraction, and bibliography references</li>
+            <li>Crossref enrichment for publication dates; source_refresh_policy controls once/interval/always per provider</li>
+            <li>8 FastAPI routers: faculty, instructors, research personnel, grants, patents, publications, metrics, journals</li>
+            <li>Next.js 14 App Router: server components for views, client components for forms; admin-only edit/delete behind session token</li>
+          </ul>
+          <div class="spec-grid">
+            <span class="spec-key">Data sources</span><span class="spec-val">Scopus · SciVal · Crossref · OpenAlex</span>
+            <span class="spec-key">Stack</span><span class="spec-val">Python 3.12 · PostgreSQL · FastAPI · Next.js 14</span>
+            <span class="spec-key">Scale</span><span class="spec-val">4,231 publications · 7,629 authors · 103 internal personnel</span>
+            <span class="spec-key">Deployment</span><span class="spec-val">Render.com — 2 web services + managed PostgreSQL</span>
+          </div>
+        </div>
+      </details>
+      <div class="card-footer">
+        <a class="btn btn-demo" href="https://institutional-research-analytics-demo.onrender.com/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Demo
+        </a>
+        <span style="font-size:.74rem; color:var(--muted);">Login: demo / demo123</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="card-image">
       <img src="research-benchmark-demo.png" alt="Research Analytics Benchmark Dashboard" loading="lazy" data-lightbox="research-benchmark-demo.png" />
       <div class="card-image-overlay"></div>
