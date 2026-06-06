@@ -23,10 +23,14 @@
     .avatar-ring { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; }
     header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; background: linear-gradient(135deg, #fff 30%, #a0b4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
     .tagline { font-size: 1.08rem; font-weight: 600; color: var(--accent2); max-width: 640px; margin: 0 auto 12px; line-height: 1.8; letter-spacing: 0.3px; }
-    .header-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .header-meta { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .header-meta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
     .badge { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--accent); padding: 3px 12px; border-radius: 20px; font-size: 0.79rem; }
     .badge a { color: var(--accent); text-decoration: none; }
     .badge a:hover { color: #7fb3ff; }
+    .badge.badge-featured { background: rgba(224, 82, 82, 0.12); border-color: var(--accent2); font-size: 0.95rem; font-weight: 700; padding: 6px 15px; }
+    .badge.badge-featured a { color: var(--accent2); }
+    .badge.badge-featured a:hover { color: #ff8c8c; }
 
     /* ── Skills strip ── */
     .skills-section { max-width: 1480px; margin: 0 auto; padding: 28px 24px 0; }
@@ -89,6 +93,9 @@
     .btn-demo:hover { background: #3a7de8; }
     .btn-private { background: var(--surface2); border: 1px solid #3a4270; color: #4a5580; font-size: 0.76rem; cursor: default; padding: 6px 12px; border-radius: 6px; }
     .btn svg { flex-shrink: 0; }
+    .demo-meta { display: flex; flex-direction: column; gap: 4px; }
+    .demo-login { font-size: .74rem; color: var(--muted); }
+    .demo-note { font-size: .76rem; color: var(--accent2); font-weight: 700; }
 
     details { margin-top: 2px; }
     summary { cursor: pointer; font-size: 0.8rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 5px; user-select: none; }
@@ -158,10 +165,16 @@
   <h1>Ahmad Farhat Portfolio</h1>
   <p class="tagline">Data Engineer &nbsp;·&nbsp; ML Practitioner &nbsp;·&nbsp; AI Systems Architect &nbsp;·&nbsp; Researcher</p>
   <div class="header-meta">
-    <span class="badge">American &nbsp;·&nbsp; UAE Golden Visa</span>
-    <span class="badge">+971-50-316-3664</span>
-    <span class="badge"><a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a></span>
-    <span class="badge"><a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></span>
+    <div class="header-meta-row">
+      <span class="badge">American &nbsp;·&nbsp; UAE Golden Visa</span>
+      <span class="badge">+971-50-316-3664</span>
+      <span class="badge"><a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a></span>
+    </div>
+    <div class="header-meta-row">
+      <span class="badge badge-featured"><a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></span>
+      <span class="badge badge-featured"><a href="https://bitsdontbyte.github.io/ahmad-farhat-portfolio/" target="_blank" rel="noopener">Portfolio ↗</a></span>
+      <span class="badge badge-featured"><a href="https://github.com/bitsdontbyte/institutional-research-etl-analytics" target="_blank" rel="noopener">Github code sample ↗</a></span>
+    </div>
   </div>
 </header>
 
@@ -243,9 +256,6 @@
           </div>
         </div>
       </details>
-      <div class="card-footer">
-        <span class="btn-private">Repository available upon request</span>
-      </div>
     </div>
   </div>
 
@@ -281,9 +291,6 @@
           </div>
         </div>
       </details>
-      <div class="card-footer">
-        <span class="btn-private">Repository available upon request</span>
-      </div>
     </div>
   </div>
 
@@ -341,7 +348,10 @@
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Live Demo
         </a>
-        <span style="font-size:.74rem; color:var(--muted);">Login: demo / demo123</span>
+        <div class="demo-meta">
+          <span class="demo-login">Login: demo / demo123</span>
+          <span class="demo-note">Hosted on Render. Initial load may take about a minute while the app server and database wake up.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -451,7 +461,10 @@
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Live Demo
         </a>
-        <span style="font-size:.74rem; color:var(--muted);">Login: demo / demo123</span>
+        <div class="demo-meta">
+          <span class="demo-login">Login: demo / demo123</span>
+          <span class="demo-note">Hosted on Render. Initial load may take about a minute while the app server and database wake up.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -539,7 +552,6 @@
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Launch App
         </a>
-        <span class="btn-private">Repository available upon request</span>
       </div>
     </div>
   </div>
