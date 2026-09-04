@@ -1,612 +1,323 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ahmad Farhat — Portfolio</title>
-  <style>
-    :root {
-      --bg: #0f1117; --surface: #1a1d27; --surface2: #222636;
-      --border: #2d3148;
-      --accent:  #4f8ef7;   /* blue  — institutional */
-      --accent2: #e05252;   /* red   — research */
-      --accent3: #3dbf8c;   /* green — applied/engineering */
-      --text: #e8eaf0; --muted: #8891aa;
-      --tag-bg: #1e2540; --tag-border: #3a4270;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 17px; }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ahmad Farhat: governed data platforms, ETL/ELT and warehousing, research analytics, GIS and remote sensing, applied ML and local LLM deployment. Selected projects with live demos and technical evidence.">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Ahmad Farhat · Data Engineer &amp; Applied ML Researcher</title>
+  <link rel="icon" href="data:,">
 
-    /* ── Header — compact ── */
-    header { background: linear-gradient(135deg, #0d1224 0%, #1a1040 50%, #0d1224 100%); border-bottom: 1px solid var(--border); padding: 28px 24px 22px; text-align: center; }
-    .avatar-ring { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; }
-    header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; background: linear-gradient(135deg, #fff 30%, #a0b4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
-    .tagline { font-size: 1.08rem; font-weight: 600; color: var(--accent2); max-width: 640px; margin: 0 auto 12px; line-height: 1.8; letter-spacing: 0.3px; }
-    .header-meta { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .header-meta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
-    .badge { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--accent); padding: 3px 12px; border-radius: 20px; font-size: 0.79rem; }
-    .badge a { color: var(--accent); text-decoration: none; }
-    .badge a:hover { color: #7fb3ff; }
-    .badge.badge-featured { background: rgba(224, 82, 82, 0.12); border-color: var(--accent2); font-size: 0.95rem; font-weight: 700; padding: 6px 15px; }
-    .badge.badge-featured a { color: var(--accent2); }
-    .badge.badge-featured a:hover { color: #ff8c8c; }
-
-    /* ── Skills strip ── */
-    .skills-section { max-width: 1480px; margin: 0 auto; padding: 28px 24px 0; }
-    .skills-grid { display: flex; flex-direction: column; gap: 10px; }
-    .skill-row { display: flex; align-items: flex-start; gap: 14px; }
-    .skill-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); min-width: 160px; padding-top: 3px; flex-shrink: 0; }
-    .skill-cat.lang  { color: var(--accent2); }
-    .skill-cat.ml    { color: var(--accent); }
-    .skill-cat.de    { color: var(--accent3); }
-    .skill-cat.mlops { color: #c084fc; }
-    .skill-cat.fw    { color: #f7a94f; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .skill-tag { background: var(--tag-bg); border: 1px solid var(--tag-border); color: #a0b4d8; font-size: 0.73rem; padding: 2px 9px; border-radius: 4px; }
-
-    /* ── Section Separator ── */
-    .section-sep { max-width: 1480px; margin: 44px auto 0; padding: 0 24px; display: flex; align-items: center; gap: 20px; }
-    .section-sep::before, .section-sep::after { content: ''; flex: 1; height: 3px; border-radius: 2px; }
-    .section-sep::before { background: linear-gradient(90deg, transparent, var(--sep-color, var(--border))); }
-    .section-sep::after  { background: linear-gradient(90deg, var(--sep-color, var(--border)), transparent); }
-    .section-sep.research     { --sep-color: var(--accent2); }
-    .section-sep.institutional{ --sep-color: var(--accent); }
-    .section-sep.applied      { --sep-color: var(--accent3); }
-    .section-sep-inner { text-align: center; flex-shrink: 0; }
-    .section-sep-title { font-size: 1.05rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
-    .section-sep-title.research     { color: var(--accent2); }
-    .section-sep-title.institutional{ color: var(--accent); }
-    .section-sep-title.applied      { color: var(--accent3); }
-    .section-sep-sub { font-size: 0.82rem; color: var(--muted); margin-top: 3px; letter-spacing: 0.5px; }
-
-    /* ── Grid — single column, all horizontal ── */
-    .projects { max-width: 1480px; margin: 0 auto; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 22px; }
-
-    /* ── Card ── */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: row; transition: border-color .2s, transform .2s, box-shadow .2s; }
-    .card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(79,142,247,.12); }
-    .card.research:hover  { border-color: var(--accent2); box-shadow: 0 16px 40px rgba(224,82,82,.12); }
-    .card.applied:hover   { border-color: var(--accent3); box-shadow: 0 16px 40px rgba(61,191,140,.12); }
-
-    .card-image { position: relative; overflow: hidden; background: var(--surface2); width: 360px; min-width: 260px; flex-shrink: 0; cursor: zoom-in; }
-    .card-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .4s; }
-    .card:hover .card-image img { transform: scale(1.03); }
-    .card-image-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--surface)); }
-    .card-image::after { content: '⤢ View'; position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,.55); color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; padding: 3px 9px; border-radius: 4px; opacity: 0; transition: opacity .2s; pointer-events: none; }
-    .card:hover .card-image::after { opacity: 1; }
-
-    .card-body { padding: 26px; display: flex; flex-direction: column; gap: 11px; flex: 1; }
-    .card-number { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
-    .card-number.research      { color: var(--accent2); }
-    .card-number.institutional { color: var(--accent); }
-    .card-number.applied       { color: var(--accent3); }
-    .card h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-    .card-desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .tag { background: var(--tag-bg); border: 1px solid var(--tag-border); color: #7ea8ff; font-size: 0.74rem; padding: 2px 9px; border-radius: 4px; }
-
-    .card-footer { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 6px; font-size: 0.83rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .1s; }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-demo { background: var(--accent); color: #fff; }
-    .btn-demo:hover { background: #3a7de8; }
-    .btn-private { background: var(--surface2); border: 1px solid #3a4270; color: #4a5580; font-size: 0.76rem; cursor: default; padding: 6px 12px; border-radius: 6px; }
-    .btn svg { flex-shrink: 0; }
-    .demo-meta { display: flex; flex-direction: column; gap: 4px; }
-    .demo-login { font-size: .74rem; color: var(--muted); }
-    .demo-note { font-size: .76rem; color: var(--accent2); font-weight: 700; }
-
-    details { margin-top: 2px; }
-    summary { cursor: pointer; font-size: 0.8rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 5px; user-select: none; }
-    summary::-webkit-details-marker { display: none; }
-    summary::before { content: '\25B6'; font-size: 0.58rem; transition: transform .2s; }
-    details[open] summary::before { transform: rotate(90deg); }
-    .details-content { margin-top: 10px; padding: 13px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.83rem; color: var(--muted); }
-    .details-content ul { padding-left: 16px; display: flex; flex-direction: column; gap: 5px; }
-    .details-content h4 { color: var(--text); margin-bottom: 7px; font-size: 0.86rem; }
-    .spec-grid { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin-top: 8px; }
-    .spec-key { color: var(--accent); font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
-    .spec-val { color: var(--muted); font-size: 0.76rem; }
-
-    /* ── Tablet: cards go vertical ── */
-    @media (max-width: 780px) {
-      .card { flex-direction: column; }
-      .card-image { width: 100%; min-width: unset; min-height: 220px; }
-    }
-
-    /* ── Mobile ── */
-    @media (max-width: 600px) {
-      html { font-size: 15px; }
-
-      header { padding: 20px 16px 16px; }
-      .tagline { font-size: 0.82rem; }
-
-      /* Skills: stack label above tags */
-      .skills-section { padding: 20px 16px 0; }
-      .skill-row { flex-direction: column; gap: 6px; }
-      .skill-cat { min-width: unset; font-size: 0.68rem; }
-
-      /* Section separators: hide decorative lines, reduce spacing */
-      .section-sep { padding: 0 16px; gap: 10px; }
-      .section-sep::before, .section-sep::after { display: none; }
-      .section-sep-title { font-size: 0.9rem; letter-spacing: 1.5px; }
-      .section-sep-sub { font-size: 0.75rem; }
-
-      /* Projects */
-      .projects { padding: 16px 16px 0; gap: 16px; }
-      .card-body { padding: 16px; gap: 9px; }
-      .card-image { min-height: 180px; }
-      .card h2 { font-size: 1.05rem; }
-      .card-desc { font-size: 0.85rem; }
-
-      .about-section { padding: 0 16px; }
-      footer { font-size: 0.75rem; }
-    }
-
-    .about-section { max-width: 760px; margin: 20px auto 60px; padding: 0 24px; text-align: center; }
-    .about-section h3 { font-size: 1.3rem; margin-bottom: 12px; }
-    .about-section p { color: var(--muted); font-size: 0.92rem; margin-bottom: 10px; }
-    footer { border-top: 1px solid var(--border); padding: 22px; text-align: center; color: var(--muted); font-size: 0.8rem; }
-    footer a { color: var(--accent); text-decoration: none; }
-
-    /* ── Lightbox ── */
-    #lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.88); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
-    #lightbox.open { display: flex; }
-    #lightbox img { max-width: 94vw; max-height: 92vh; border-radius: 8px; box-shadow: 0 32px 80px rgba(0,0,0,.7); object-fit: contain; }
-    #lightbox-close { position: fixed; top: 18px; right: 22px; font-size: 1.6rem; color: #fff; cursor: pointer; background: none; border: none; line-height: 1; opacity: .75; transition: opacity .15s; }
-    #lightbox-close:hover { opacity: 1; }
-  </style>
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Ahmad Farhat · Data Engineer &amp; Applied ML Researcher">
+  <meta property="og:description" content="Ahmad Farhat: governed data platforms, ETL/ELT and warehousing, research analytics, GIS and remote sensing, applied ML and local LLM deployment. Selected projects with live demos and technical evidence.">
+  <meta property="og:image" content="https://ahmad-farhat.com/assets/research_analytics_card.webp">
+  <meta property="og:image:alt" content="Institutional Research Analytics architecture diagram">
+  <meta property="og:url" content="https://ahmad-farhat.com/">
+  <meta property="og:site_name" content="Ahmad Farhat">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ahmad Farhat · Data Engineer &amp; Applied ML Researcher">
+  <meta name="twitter:description" content="Ahmad Farhat: governed data platforms, ETL/ELT and warehousing, research analytics, GIS and remote sensing, applied ML and local LLM deployment. Selected projects with live demos and technical evidence.">
+  <meta name="twitter:image" content="https://ahmad-farhat.com/assets/research_analytics_card.webp">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to projects</a>
 
-<!-- ══ HEADER ══ -->
-<header>
-  <h1>Ahmad Farhat Portfolio</h1>
-  <p class="tagline">Data Engineer &nbsp;·&nbsp; ML Practitioner &nbsp;·&nbsp; AI Systems Architect &nbsp;·&nbsp; Researcher</p>
-  <div class="header-meta">
-    <div class="header-meta-row">
-      <span class="badge">American &nbsp;·&nbsp; UAE Golden Visa</span>
-      <span class="badge">+971-50-316-3664</span>
-      <span class="badge"><a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a></span>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="identity-block">
+        <a class="wordmark" href="#top" aria-label="Ahmad Farhat portfolio"><span class="monogram">AF</span><span><b>Ahmad Farhat</b></span></a>
+        <div class="identity-meta">
+          <a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a>
+          <a href="tel:+971503163664">+971 50 316 3664</a>
+          <a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
+          <a href="https://github.com/bitsdontbyte" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Portfolio sections">
+        <a href="#governance">Governance</a>
+        <a href="#spatial">HTR / GIS</a>
+        <a href="#oxcovid">OxCOVID19</a>
+        <a href="#research">Research</a>
+      </nav>
     </div>
-    <div class="header-meta-row">
-      <span class="badge badge-featured"><a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></span>
-      <span class="badge badge-featured"><a href="https://bitsdontbyte.github.io/ahmad-farhat-portfolio/" target="_blank" rel="noopener">Portfolio ↗</a></span>
-      <span class="badge badge-featured"><a href="https://github.com/bitsdontbyte/institutional-research-etl-analytics" target="_blank" rel="noopener">Github code sample ↗</a></span>
-    </div>
-  </div>
-</header>
+  </header>
 
-<!-- ══ SKILLS ══ -->
-<div class="skills-section">
-  <div class="skills-grid">
-    <div class="skill-row">
-      <span class="skill-cat lang">Languages</span>
-      <div class="skill-tags">
-        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Bash</span><span class="skill-tag">R</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C++</span><span class="skill-tag">Java</span>
+  <main id="main">
+    <section class="intro" aria-labelledby="intro-title">
+      <div>
+        <h1 id="intro-title">Ahmad Farhat · Data Engineer &amp; Applied ML Researcher</h1>
+        <p class="intro-copy">Data engineer and applied machine-learning researcher experienced in governed institutional platforms, research analytics, GIS and remote sensing, local LLM deployment, historical handwriting recognition, public-health acquisition pipelines and HPC scientific systems. I build reproducible workflows from source ingestion through validation, entity resolution, model inference, human review and auditable delivery.</p>
       </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-cat ml">ML &amp; AI</span>
-      <div class="skill-tags">
-        <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">Transformers</span><span class="skill-tag">VICReg</span><span class="skill-tag">NumPy / SciPy</span><span class="skill-tag">LangGraph</span><span class="skill-tag">RAG</span><span class="skill-tag">Vector Databases</span><span class="skill-tag">MCP Servers</span><span class="skill-tag">Ollama / Local LLMs</span><span class="skill-tag">Claude Code</span><span class="skill-tag">Claude Skills &amp; Plugins</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-cat de">Data Engineering</span>
-      <div class="skill-tags">
-        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">pgvector</span><span class="skill-tag">Oracle</span><span class="skill-tag">Pandas</span><span class="skill-tag">ETL Pipelines</span><span class="skill-tag">D3.js</span><span class="skill-tag">Bloomberg BLPAPI</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-cat mlops">MLOps &amp; Infra</span>
-      <div class="skill-tags">
-        <span class="skill-tag">SLURM / HPC</span><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Git</span><span class="skill-tag">Linux</span><span class="skill-tag">FastAPI</span><span class="skill-tag">Apache Airflow</span><span class="skill-tag">HDF5 / h5py</span><span class="skill-tag">ChromaDB</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-cat fw">Frameworks</span>
-      <div class="skill-tags">
-        <span class="skill-tag">Django</span><span class="skill-tag">Sentence-Transformers</span><span class="skill-tag">NetworkX</span><span class="skill-tag">eScriptorium</span><span class="skill-tag">PWA / Service Workers</span><span class="skill-tag">Chart.js</span>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- ══ COMPUTATIONAL RESEARCH ══ -->
-<div class="section-sep research">
-  <div class="section-sep-inner">
-    <div class="section-sep-title research">Computational Research</div>
-    <div class="section-sep-sub">Topological Data Analysis &nbsp;·&nbsp; Computational Neuroscience</div>
-  </div>
-</div>
-<div class="projects">
+    <section class="skills-panel" aria-labelledby="skills-title">
+      <h2 id="skills-title">Technical capabilities</h2>
+      <div class="skill-row skill-data"><b>Data engineering &amp; warehousing</b><div class="skills"><span>Python</span><span>SQL</span><span>PostgreSQL</span><span>Oracle</span><span>ETL / ELT</span><span>Data warehousing</span><span>Star schema</span><span>Fact &amp; dimension tables</span><span>Schema design</span><span>Data lineage</span><span>Entity resolution</span><span>Data quality</span><span>REST APIs</span><span>JSON / CSV / Parquet</span><span>HDF5</span></div></div>
+      <div class="skill-row skill-gis"><b>GIS &amp; remote sensing</b><div class="skills"><span>GeoPandas</span><span>Rasterio</span><span>GDAL</span><span>Shapely</span><span>PyProj</span><span>PostGIS</span><span>OSMnx</span><span>STAC / pystac-client</span><span>Planetary Computer</span><span>Stackstac</span><span>Xarray</span><span>GeoTIFF / COG</span><span>ArcGIS / QGIS</span><span>Leaflet</span><span>Spatial joins</span><span>Change detection</span></div></div>
+      <div class="skill-row skill-ai"><b>AI, ML &amp; retrieval</b><div class="skills"><span>PyTorch</span><span>TensorFlow</span><span>Scikit-learn</span><span>Transformers</span><span>Sentence Transformers</span><span>RAG</span><span>LangGraph</span><span>Embeddings</span><span>Semantic search</span><span>Vector databases</span><span>Classification</span><span>Clustering</span><span>Anomaly detection</span><span>Local LLM deployment</span><span>Model deployment</span><span>Multimodal inference</span><span>Prompt pipelines</span><span>Human-in-the-loop AI</span><span>SAM 2</span><span>Prithvi</span><span>Isolation Forest</span><span>LOF</span><span>HDBSCAN</span></div></div>
+      <div class="skill-row skill-infra"><b>Applications &amp; infrastructure</b><div class="skills"><span>Django</span><span>FastAPI</span><span>pgvector</span><span>ChromaDB</span><span>Airflow</span><span>AWS</span><span>Docker</span><span>Git</span><span>Linux</span><span>SLURM / HPC</span><span>Chart.js</span><span>D3.js</span><span>PWA / service workers</span></div></div>
+    </section>
 
-  <div class="card research">
-    <div class="card-image">
-      <img src="neurotopo.png" alt="NeuroTopo pipeline diagram" loading="lazy" data-lightbox="neurotopo.png" />
-      <div class="card-image-overlay"></div>
+    <div class="section-heading" id="governance">
+      <div><p>01</p><h2>Institutional data &amp; governance</h2></div>
+      <span>Identity · provenance · controlled schemas · auditability</span>
     </div>
-    <div class="card-body">
-      <div class="card-number research">Research · Topological ML · HPC</div>
-      <h2>NeuroTopo — Large-Scale Neuronal Morphology Analysis</h2>
-      <p class="card-desc">End-to-end HPC pipeline processing ~286,000 reconstructed neurons (SWC format) to compute 8 topological Sholl descriptors and produce a 286,000×286,000 pairwise distance matrix (~164 GB, ~41 billion unique pairs) with O(1) lookup. Descriptor weights optimized via differential evolution over labeled neuronal classes. Published in PLOS Computational Biology Q1 (25 citations).</p>
-      <div class="card-tags">
-        <span class="tag">Python</span><span class="tag">NumPy / SciPy</span><span class="tag">HDF5/h5py</span>
-        <span class="tag">SLURM</span><span class="tag">HPC A100</span><span class="tag">TDA</span><span class="tag">NetworkX</span>
-      </div>
-      <details>
-        <summary>Technical architecture</summary>
-        <div class="details-content">
-          <h4>Pipeline stages</h4>
-          <ul>
-            <li>SWC parsing &amp; standardization — soma centering, graph reordering, node role classification</li>
-            <li>8 Sholl step-function descriptors: Branching Pattern, Tortuosity, Flux, Energy, Leaf, Wiring, Spread, TMD</li>
-            <li>Fixed-length vectorization: 8 × 50 = 400 float32 features per neuron stored in HDF5</li>
-            <li>Z-score normalization + PCA to 25D for clustering and classification</li>
-            <li>Block-wise upper-triangular distance matrix: 1,711 blocks at 5,000×5,000</li>
-            <li>Differential evolution weight optimizer: 92-worker deferred-update, permutation-tested p-values</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Dataset</span><span class="spec-val">~286,000 SWC neurons · ~41B unique pairs</span>
-            <span class="spec-key">Storage</span><span class="spec-val">~1.5 TB (8 descriptor matrices + combined ~164 GB)</span>
-            <span class="spec-key">HPC</span><span class="spec-val">96 vCPU · 349 GB RAM · SLURM job arrays · hpc6a.48xlarge</span>
-            <span class="spec-key">Published</span><span class="spec-val">PLOS Computational Biology Q1 · 25 citations</span>
+
+    <section class="project-list" aria-label="Institutional data projects">
+      <article class="project-card governance research-analytics-card">
+        <button class="card-thumb image-thumb research-analytics-thumb" type="button" data-lightbox="assets/research_analytics_card.webp" aria-label="Open Institutional Research Analytics architecture">
+          <img src="assets/research_analytics_card.webp" alt="Institutional Research Analytics six-layer architecture with sources, ingestion, evidence, warehouse facts and dimensions, intelligence, and delivery" width="1500" height="1225" fetchpriority="high" decoding="async">
+          <span class="thumb-label">Sources → ingestion → evidence → facts + dimensions → intelligence → delivery</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Multi-source data engineering · institutional intelligence · ML-assisted matching</p>
+          <h3>Institutional Research Analytics Platform</h3>
+          <p class="card-summary">A production research-intelligence system that reconciles fragmented external evidence with institution-maintained records. It preserves every source row, resolves publication identity conservatively and enriches the research graph through governed APIs. A normalized source of truth feeds an analytical star schema, organizing measurable activity as facts and reporting context as dimensions for department, faculty, quality, collaboration and graduate-research intelligence.</p>
+          <div class="metric-row"><span><b>4,231</b> publications</span><span><b>7,629</b> authors</span><span><b>20,041</b> authorships</span><span><b>44,073</b> classifications</span><span><b>103</b> personnel</span></div>
+          <div class="metric-row architecture-metrics"><span><b>5</b> governed schemas</span><span><b>17</b> CLI commands</span><span><b>89</b> SQL migrations</span><span><b>12</b> protected API domains</span></div>
+          <div class="research-narrative" aria-label="Project narrative">
+            <div><b>Problem</b><p>Publication exports, external APIs and university operational records use different identifiers, update cycles and definitions.</p></div>
+            <div><b>Engineering</b><p>Separate raw capture from semantic normalization, protect internal data, then publish governed facts and dimensions for repeatable institutional reporting.</p></div>
+            <div><b>Outcome</b><p>Leadership dashboards use defensible CEN attribution, journal quality, collaboration and per-regular-faculty measures.</p></div>
+          </div>
+          <div class="tags"><span>Scopus / SciVal</span><span>Crossref</span><span>OpenAlex</span><span>PostgreSQL</span><span>Governed ETL / ELT</span><span>Entity resolution</span><span>Star schema · facts + dimensions</span><span>Sentence Transformers</span><span>FastAPI</span><span>Next.js</span><span>Human audit gate</span></div>
+          <details>
+            <summary>Technical evidence</summary>
+            <div class="detail-content evidence-grid">
+              <div><h4>1 · Governed source capture</h4><p>SciVal and Scopus Excel/CSV/TXT loaders detect real headers, fingerprint supported files against 148 governed provider headers and retain each original row as JSON plus source-named columns. File SHA-256, row hashes, import batches and ingestion runs establish replayable lineage.</p></div>
+              <div><h4>2 · Conservative identity resolution</h4><p>Scopus is the publication system of record. Missing EIDs resolve in an explicit confidence order: Scopus EID, Scopus-link reconstruction, SciVal DOI and unique exact title. Unresolved rows remain in raw storage; the pipeline never invents identifiers.</p></div>
+              <div><h4>3 · Normalized research graph</h4><p>Idempotent normalization creates publications, authors, authorships, journals, year-sensitive metrics, classifications, topics, affiliations, dates and cited-reference structures. This governed source of truth feeds an analytical star schema: publications, metrics, authorships, grants, patents and 2/N measures form the facts; author/faculty, journal, institution, department, date, topic and classification provide the dimensions. Crossref and OpenAlex responses are cached, with refresh policies controlling repeat enrichment.</p></div>
+              <div><h4>4 · Protected institutional model</h4><p>Faculty, instructors, departments, grants, patents/IP, research personnel and graduate-student records live in the separate internal schema. External ingestion cannot overwrite institution-maintained data; Scopus author IDs provide the reporting bridge.</p></div>
+              <div><h4>5 · Reviewable ML matching</h4><p>Graduate-publication matching uses exact Scopus IDs and deterministic name rules first, then Sentence Transformers when needed. Compatibility gates, confidence thresholds, persisted review states and advisor scope keep semantic similarity from becoming an unchecked match.</p></div>
+              <div><h4>6 · Operational analytics</h4><p>A protected FastAPI service and role-aware Next.js portal deliver publication browsing, faculty profiles, grants, patents, metrics and ingestion control. Dashboards cover Q1–Q4, top percentiles, collaboration, department contribution, 2/N coverage and output per regular faculty.</p></div>
+            </div>
+          </details>
+          <div class="card-actions">
+            <a class="button primary" href="https://institutional-research-analytics-demo.onrender.com/" target="_blank" rel="noopener">Live demo ↗</a>
+            <span class="login-note">Login: demo / demo123</span>
           </div>
         </div>
-      </details>
-    </div>
-  </div>
+      </article>
 
-  <div class="card research">
-    <div class="card-image">
-      <img src="NeuronAtlas.png" alt="NeuronAtlas architecture" loading="lazy" data-lightbox="NeuronAtlas.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number research">Research · Deep Learning · Nature-target</div>
-      <h2>NeuronAtlas — Universal Neuron Embedding Atlas</h2>
-      <p class="card-desc">Self-supervised multimodal Transformer (12 layers, d=512, ~48.2M parameters) trained on 286,380 morphologically reconstructed neurons across 94 species. Learns a species-agnostic representation space enabling cross-species retrieval, morphological type discovery, and cell-type classification. Targeting Nature / Nature Methods publication.</p>
-      <div class="card-tags">
-        <span class="tag">PyTorch</span><span class="tag">Transformers</span><span class="tag">VICReg</span>
-        <span class="tag">Multimodal</span><span class="tag">AWS</span><span class="tag">286K neurons · 94 species</span>
-      </div>
-      <details>
-        <summary>Model &amp; training details</summary>
-        <div class="details-content">
-          <h4>Architecture</h4>
-          <ul>
-            <li>Pre-norm Transformer · 12 layers · 16 heads · d=512 · FFN 2048 · ~48.2M parameters</li>
-            <li>3 input modalities: Morphometrics (21D) · Principal Vectors (100D) · Sholl Descriptors (400D) → 57 tokens</li>
-            <li>Multi-objective: VICReg (invariance/variance/covariance) + masked reconstruction + supervised CE (94 species)</li>
-            <li>15-ablation systematic study; best ablation: supervised_only (morpho full)</li>
-            <li>Species Recall@1: 69.98% on held-out test; morphometrics dominate by ~11 percentage points</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Dataset</span><span class="spec-val">286,380 neurons · 94 species (mouse 52%, rat 21%, Drosophila 13%…)</span>
-            <span class="spec-key">Model</span><span class="spec-val">Pre-norm Transformer · 48.2M params · 512D [CLS] output</span>
-            <span class="spec-key">Best metric</span><span class="spec-val">Species Recall@1 = 69.98% on held-out test set</span>
-            <span class="spec-key">Target</span><span class="spec-val">Nature / Nature Methods publication</span>
+      <div class="project-divider" aria-hidden="true"><span>Next institutional project</span></div>
+
+      <article class="project-card governance">
+        <button class="card-thumb image-thumb" type="button" data-lightbox="assets/outreach.webp" aria-label="Open Outreach Management System diagram">
+          <img src="assets/outreach.webp" alt="Outreach Management System architecture" width="1402" height="1121" loading="lazy" decoding="async">
+          <span class="thumb-label">Validated institutional record workflow</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Operations data · validation · audit</p>
+          <h3>Outreach Management System</h3>
+          <p class="card-summary">A Django/PostgreSQL workflow for governed outreach records, validation, duplicate controls, controlled overrides and auditable reporting.</p>
+          <div class="flow-strip" aria-label="Outreach workflow"><span>Activity intake</span><i>→</i><span>Validate</span><i>→</i><span>De-duplicate</span><i>→</i><span>Authorize</span><i>→</i><span>Report</span></div>
+          <div class="tags"><span>Django</span><span>PostgreSQL</span><span>Atomic loads</span><span>Audit trails</span><span>Role gating</span></div>
+          <details>
+            <summary>Technical evidence</summary>
+            <div class="detail-content">
+              <ul>
+                <li>Validation and duplicate rules prevent inconsistent activity records from silently entering reporting.</li>
+                <li>Authorized overrides preserve the decision and actor instead of replacing the original evidence.</li>
+                <li>Atomic database operations protect multi-record updates from partial failure.</li>
+                <li>Django authentication and staff gating are implemented; field-level permissions support phased access-control expansion.</li>
+              </ul>
+            </div>
+          </details>
+          <div class="card-actions">
+            <a class="button primary" href="https://cenoutreachdemo.onrender.com/dashboard/" target="_blank" rel="noopener">Live demo ↗</a>
+            <span class="login-note">Login: demo / demo123</span>
           </div>
         </div>
-      </details>
+      </article>
+    </section>
+
+    <div class="section-heading" id="spatial">
+      <div><p>02</p><h2>HTR · GIS · Satellite · Drone · Historical Archives</h2></div>
+      <span>Raster-to-vector · change detection · document recognition</span>
     </div>
-  </div>
 
-</div>
-
-<!-- ══ INSTITUTIONAL ANALYTICS ══ -->
-<div class="section-sep institutional">
-  <div class="section-sep-inner">
-    <div class="section-sep-title institutional">Institutional Analytics</div>
-    <div class="section-sep-sub">Institutional Research &amp; Analytics</div>
-  </div>
-</div>
-<div class="projects">
-
-  <div class="card">
-    <div class="card-image" style="height:300px; cursor:pointer;" onclick="window.open('research_analytics_architecture.html','_blank')" title="Click to view full architecture diagram">
-      <div style="position:absolute; inset:0; overflow:hidden; background:#08090d;">
-        <iframe src="research_analytics_architecture.html"
-                style="width:1440px; height:1200px; transform:scale(0.25); transform-origin:top left; border:none; pointer-events:none;"
-                scrolling="no" tabindex="-1" loading="lazy">
-        </iframe>
-      </div>
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number institutional">Institutional · Full-Stack · Data Engineering</div>
-      <h2>Institutional Research Analytics Platform</h2>
-      <p class="card-desc">University-wide research intelligence platform integrating Scopus, SciVal, Crossref, and OpenAlex into a centralized PostgreSQL data warehouse across five purpose-built schemas. A Python ingestion pipeline normalizes raw vendor exports into structured entities with full diff-based idempotency and column-level provenance tracking. FastAPI backend exposes eight domain routers powering a Next.js 14 management portal with complete CRUD for faculty, research personnel, grants, and patents — deployed on Render.com.</p>
-      <div class="card-tags">
-        <span class="tag">PostgreSQL</span><span class="tag">FastAPI</span><span class="tag">Next.js 14</span>
-        <span class="tag">Scopus API</span><span class="tag">Python ETL</span><span class="tag">Render.com</span><span class="tag">SciVal</span><span class="tag">Crossref</span>
-      </div>
-      <details>
-        <summary>Architecture overview</summary>
-        <div class="details-content">
-          <h4>System breakdown</h4>
-          <ul>
-            <li>Five PostgreSQL schemas: core (audit/provenance), scival, scopus, research (normalized), internal (form data)</li>
-            <li>Diff-based idempotent ingestion — re-importing the same file produces zero DB changes; every column delta logged to core.change_log</li>
-            <li>Scopus Abstract API enrichment for author affiliations, ORCID extraction, and bibliography references</li>
-            <li>Crossref enrichment for publication dates; source_refresh_policy controls once/interval/always per provider</li>
-            <li>8 FastAPI routers: faculty, instructors, research personnel, grants, patents, publications, metrics, journals</li>
-            <li>Next.js 14 App Router: server components for views, client components for forms; admin-only edit/delete behind session token</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Data sources</span><span class="spec-val">Scopus · SciVal · Crossref · OpenAlex</span>
-            <span class="spec-key">Stack</span><span class="spec-val">Python 3.12 · PostgreSQL · FastAPI · Next.js 14</span>
-            <span class="spec-key">Scale</span><span class="spec-val">4,231 publications · 7,629 authors · 103 internal personnel</span>
-            <span class="spec-key">Deployment</span><span class="spec-val">Render.com — 2 web services + managed PostgreSQL</span>
+    <section class="project-list" aria-label="GIS and archive projects">
+      <article class="project-card spatial land-intelligence-card">
+        <button class="card-thumb image-thumb gis-illustrated-thumb" type="button" data-lightbox="assets/gis_remote_sensing_card.webp" aria-label="Open GIS Satellite and Drone processing workflow">
+          <img src="assets/gis_remote_sensing_card.webp" alt="Five-stage drone-and-satellite processing chain above one aerial map with detected building-area outlines" width="1500" height="1125" loading="lazy" decoding="async">
+          <span class="thumb-label">Drone + satellite evidence → AI detection → GIS building footprints</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">GIS · remote sensing · computer vision</p>
+          <h3>GIS — Satellite &amp; Drone</h3>
+          <p class="card-summary">End-to-end geospatial workflows that turn orthophotos, reference polygons and multi-date satellite scenes into reviewable building footprints and change layers.</p>
+          <div class="tags model-tags"><span>Gemini 3.1 Pro</span><span>SAM 2</span><span>Prithvi embeddings</span><span>Isolation Forest</span><span>LOF</span><span>HDBSCAN</span><span>Graph anomaly detection</span><span>Time-series anomaly detection</span><span>Rasterio / GDAL</span><span>GeoPandas</span><span>Shapely</span><span>PyProj</span><span>PostGIS</span></div>
+          <details>
+            <summary>Four technical workflows</summary>
+            <div class="detail-content workflow-grid">
+              <div><h4>Drone imagery · Gemini + SAM 2</h4><p>GeoTIFF / COG → crop, tile and reproject → Gemini bounding boxes → SAM 2 pixel masks → map coordinates → repaired building polygons.</p></div>
+              <div><h4>Reference GIS</h4><p>OSMnx or institutional polygons → geometry repair → CRS alignment → deduplication → area, centroid, overlap and building IDs.</p></div>
+              <div><h4>Satellite change · Prithvi</h4><p>STAC search → signed assets → Stackstac/Xarray → cloud mask → band differences, spectral indices or Prithvi embeddings → threshold → polygonized change layer.</p></div>
+              <div><h4>Anomaly model suite</h4><p>Engineered land metrics feed Isolation Forest for global anomalies, LOF for peer-group anomalies, HDBSCAN for unusual clusters, graph methods for coordinated relationships and time-series models for unusual registry alterations.</p></div>
+            </div>
+          </details>
+          <div class="card-actions">
+            <a class="button primary" href="https://ahmad-farhat.com/aerial.html" target="_blank" rel="noopener">Aerial + satellite demo ↗</a>
+            <a class="button" href="https://ahmad-farhat.com/" target="_blank" rel="noopener">Project overview ↗</a>
           </div>
         </div>
-      </details>
-      <div class="card-footer">
-        <a class="btn btn-demo" href="https://institutional-research-analytics-demo.onrender.com/" target="_blank" rel="noopener">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Live Demo
-        </a>
-        <div class="demo-meta">
-          <span class="demo-login">Login: demo / demo123</span>
-          <span class="demo-note">Hosted on Render. Initial load may take about a minute while the app server and database wake up.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+      </article>
 
-  <div class="card">
-    <div class="card-image">
-      <img src="research-benchmark-demo.png" alt="Research Analytics Benchmark Dashboard" loading="lazy" data-lightbox="research-benchmark-demo.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number institutional">Institutional · Research Intelligence</div>
-      <h2>Research Analytics Benchmark Dashboard</h2>
-      <p class="card-desc">University-wide research intelligence platform integrating Scopus, SciVal, OpenAlex, Crossref, and Unpaywall into a centralized PostgreSQL data warehouse. Provides senior leadership with live benchmarking against regional and global peer institutions — measuring publication output, journal quality (quartiles), collaboration networks, author productivity, and research trend forecasting — via interactive D3.js dashboards.</p>
-      <div class="card-tags">
-        <span class="tag">D3.js</span><span class="tag">PostgreSQL</span><span class="tag">Python ETL</span>
-        <span class="tag">Scopus API</span><span class="tag">OpenAlex</span><span class="tag">Bibliometrics</span><span class="tag">KPI frameworks</span>
-      </div>
-      <details>
-        <summary>What this platform does</summary>
-        <div class="details-content">
-          <ul>
-            <li>Automated ETL extracts, cleanses, and normalizes bibliometric &amp; citation data across multiple international universities</li>
-            <li>KPIs: publication output, journal quality (quartiles), collaboration networks, author productivity, research quality distribution</li>
-            <li>D3.js executive dashboards for peer benchmarking — used by senior leadership for strategic planning &amp; accreditation</li>
-            <li>Data governance workflows ensuring reproducibility and auditability of all performance metrics</li>
-          </ul>
-        </div>
-      </details>
-      <div class="card-footer">
-        <a class="btn btn-demo" href="https://research-benchmark-demo.pages.dev/" target="_blank" rel="noopener">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Live Demo
-        </a>
-      </div>
-    </div>
-  </div>
+      <div class="project-divider spatial-divider" aria-hidden="true"><span>Next archive project</span></div>
 
-  <div class="card">
-    <div class="card-image">
-      <img src="research-clusters-demo.png" alt="Research Clustering" loading="lazy" data-lightbox="research-clusters-demo.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number institutional">Institutional · ML Pipeline</div>
-      <h2>Research Clustering &amp; Thematic Visualization</h2>
-      <p class="card-desc">AI-powered pipeline applying dimensionality reduction (PCA) and unsupervised clustering to institutional publication corpora — mapping the research landscape to identify thematic strengths, gaps, and collaboration opportunities. Feeds into the benchmark dashboard for strategic foresight.</p>
-      <div class="card-tags">
-        <span class="tag">PCA</span><span class="tag">Clustering</span><span class="tag">Python</span>
-        <span class="tag">pgvector</span><span class="tag">NLP</span><span class="tag">Visualization</span>
-      </div>
-      <details>
-        <summary>Pipeline overview</summary>
-        <div class="details-content">
-          <ul>
-            <li>Publication abstracts encoded into semantic feature space using transformer-based embedding models</li>
-            <li>PCA dimensionality reduction + unsupervised clustering for 2D/3D research landscape visualization</li>
-            <li>Automated cluster labeling and thematic classification aligned with strategic priorities</li>
-            <li>Privacy-preserving: runs fully on-premise — no external API calls for sensitive institutional data</li>
-            <li>FastAPI microservices expose clustering and retrieval endpoints for downstream dashboard integration</li>
-            <li>Apache Airflow orchestrates automated ingestion from Scopus and enrichment APIs on a scheduled cadence</li>
-          </ul>
+      <article class="project-card archives htr-project-card">
+        <button class="card-thumb image-thumb htr-evidence-thumb" type="button" data-lightbox="assets/htr_pipeline_card.webp" aria-label="Open Dublin Wide Streets Commission local-first HTR architecture">
+          <img src="assets/htr_pipeline_card.webp" alt="Six-stage local-first HTR pipeline above an archival page and its detected text regions" width="1387" height="1134" loading="lazy" decoding="async">
+          <span class="thumb-label">Locally deployed vision models → optional API adjudication → traceable transcription</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Dublin historical archives · HTR · cadastral extraction</p>
+          <h3>Dublin 18th-Century Wide Streets Commission Transcription Project</h3>
+          <p class="card-summary">An auditable pipeline built around locally deployed vision models for Dublin’s eighteenth-century commission records. It preserves the scan, page identity, regions, line crops, model decisions and structured cadastral fields as one evidence chain. Page preparation, orientation, classification and segmentation run through locally deployed models; external APIs sit behind an explicit adjudication boundary for unresolved handwriting or model disagreement.</p>
+          <div class="metric-row"><span><b>64</b> archival pages</span><span><b>1,682</b> segmented lines</span><span><b>809</b> recognition crops</span><span><b>90%</b> local agreement</span></div>
+          <div class="htr-narrative" aria-label="HTR project narrative">
+            <div><b>Model selection</b><p>Qwen2.5-VL-7B exhausted the A10G, while 8-bit compression reduced its accuracy. The locally deployed 3B model was both smaller and more accurate on this cursive.</p></div>
+            <div><b>Local witness design</b><p>Qwen2.5-VL-3B and 8-bit GLM-4.1V-9B provide independent semantic judgments; Surya and Kraken provide complementary region and line geometry.</p></div>
+            <div><b>Adjudication boundary</b><p>Claude, Gemini or GPT can be called for difficult text or disagreement. Unresolved words remain marked and route to <code>needs_human_review</code>.</p></div>
+          </div>
+          <div class="model-groups">
+            <div><b>Locally deployed</b><div class="tags model-tags local-model-tags"><span>Qwen2.5-VL-3B</span><span>GLM-4.1V-9B · 8-bit</span><span>Surya</span><span>Kraken</span><span>OpenCV</span><span>Pillow</span><span>pdf2image</span><span>Python</span></div></div>
+            <div><b>Local reader pool / evaluated</b><div class="tags model-tags candidate-model-tags"><span>Qwen-3B</span><span>GLM-9B</span><span>Kimi-VL</span><span>DeepSeek-OCR</span><span>TrOCR rejected</span><span>Qwen2.5-VL-7B · A10G OOM</span></div></div>
+            <div><b>External API boundary</b><div class="tags model-tags api-model-tags"><span>Claude Sonnet 4.6</span><span>Gemini 3.1 Pro</span><span>GPT optional</span></div></div>
+          </div>
+          <details>
+            <summary>Complete processing progression and model decisions</summary>
+            <div class="detail-content stage-list">
+              <p><b>01 · Ingest:</b> <code>pdf2image</code> assigns every page a permanent ID so evidence cannot be mixed downstream.</p>
+              <p><b>02 · Render:</b> <code>pdf2image</code> and Pillow render fresh 300-DPI PNGs from the PDF, prioritizing chain of custody over shortcuts.</p>
+              <p><b>03 · Enhance:</b> Pillow applies greyscale conversion and autocontrast locally while preserving the original page.</p>
+              <p><b>04 · Orientation and page hint:</b> locally deployed Qwen2.5-VL-3B works with an OpenCV aspect-ratio check. Gemini 3.1 Pro is an escalation option. The 7B model exhausted the A10G and 8-bit compression hurt accuracy; 3B performed better on this cursive.</p>
+              <p><b>05 · Page-type classification:</b> Qwen2.5-VL-3B and locally deployed GLM-4.1V-9B at 8-bit act as two independent witnesses. Gemini adjudicates only when they disagree.</p>
+              <p><b>06 · Region segmentation:</b> Surya and Kraken draw geometry; Qwen and GLM assign region semantics. Gemini can fuse conflicting evidence as an optional adjudicator.</p>
+              <p><b>07 · Line segmentation:</b> Surya and Kraken produce line geometry locally. Kraken reuses layout work from the previous phase; only disagreement needs escalation.</p>
+              <p><b>09 · Line crops:</b> Pillow produces 809 single-line images—the input shape expected by handwriting recognizers.</p>
+              <p><b>10 · Transcription:</b> TrOCR was rejected after failing on the cursive. Qwen-3B, GLM-9B, Kimi-VL and DeepSeek-OCR form the local-capable reader pool. The current difficult-cursive pass used Claude Sonnet 4.6, with Gemini 3.1 Pro as tie-breaker; GPT remains optional. Unresolved text stays marked <code>[?]</code> or <code>[illegible]</code> and routes to human review.</p>
+              <p><b>12 · Page assembly:</b> pure Python restores line crops to page reading order without another model call.</p>
+              <p><b>13 · Cadastral extraction:</b> parties, parcels and amounts enter a fixed schema, with every field traceable to its source line. The current extraction pass used Claude Sonnet 4.6; a local LLM can replace this boundary.</p>
+              <p><b>14 · Cross-registry validation — deferred:</b> GeoPandas and fuzzy matching require a real reference land registry that is not currently available.</p>
+              <p><b>15 · Risk routing — deferred:</b> the rule engine will route high-risk fields to humans after cross-registry validation exists.</p>
+              <p><b>16 · Report site:</b> Python generates the auditable HTML deliverable and states completed, escalated and deferred work explicitly.</p>
+            </div>
+          </details>
+          <div class="card-actions"><a class="button primary" href="https://ahmad-farhat.com/" target="_blank" rel="noopener">Live archive demo ↗</a><span class="login-note">Private implementation repository</span></div>
         </div>
-      </details>
-      <div class="card-footer">
-        <a class="btn btn-demo" href="https://research-clusters-demo.pages.dev/" target="_blank" rel="noopener">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Live Demo
-        </a>
-      </div>
-    </div>
-  </div>
+      </article>
 
-  <div class="card">
-    <div class="card-image">
-      <img src="outreach.png" alt="Outreach Management Platform" loading="lazy" data-lightbox="outreach.png" />
-      <div class="card-image-overlay"></div>
+    </section>
+
+    <div class="section-heading oxford-heading" id="oxcovid">
+      <div><p>03</p><h2>Oxford OxCOVID19 Database</h2></div>
+      <span>Nature Portfolio · Scientific Reports · 2021</span>
     </div>
-    <div class="card-body">
-      <div class="card-number institutional">Institutional · Full-Stack Platform</div>
-      <h2>Outreach Management Platform</h2>
-      <p class="card-desc">Production full-stack Django/PostgreSQL application centralizing all academic outreach, industry partnerships, MOUs, research projects, senior design sponsorships, executive education, internships, and faculty/industry contacts across 6 engineering departments — replacing scattered spreadsheets with a single queryable platform with semantic search and interactive analytics.</p>
-      <div class="card-tags">
-        <span class="tag">Django 5.2</span><span class="tag">PostgreSQL</span><span class="tag">pgvector</span>
-        <span class="tag">Sentence-Transformers</span><span class="tag">Chart.js</span><span class="tag">Semantic Search</span><span class="tag">Render</span>
-      </div>
-      <details>
-        <summary>Technical deep-dive</summary>
-        <div class="details-content">
-          <h4>Architecture highlights</h4>
-          <ul>
-            <li>15+ interconnected Django models; polymorphic relationships via <code>GenericForeignKey</code></li>
-            <li>4 custom M2M through-models each with <code>is_lead</code> flag — zero double-counting across all dashboard panels</li>
-            <li>Semantic deduplication: <code>all-MiniLM-L6-v2</code> (384-dim) + fuzzy matching at save time</li>
-            <li>10+ interactive Chart.js panels: engagement distribution, faculty leaderboard, ISDP heatmap, growth trends</li>
-            <li>Custom per-user, per-model access control; full audit trail via <code>AuditedModel</code> base class</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Backend</span><span class="spec-val">Django 5.2 CBV + service layer for bulk ops</span>
-            <span class="spec-key">Database</span><span class="spec-val">PostgreSQL + pgvector; 20+ migrations incl. data migrations</span>
-            <span class="spec-key">ML</span><span class="spec-val">Sentence-Transformers at save time; cosine similarity deduplication</span>
-            <span class="spec-key">Scale</span><span class="spec-val">5 years activity data; 500+ seeded demo records</span>
+
+    <section class="project-list" aria-label="Oxford OxCOVID19 project">
+      <article class="project-card public-health">
+        <button class="card-thumb image-thumb" type="button" data-lightbox="assets/oxford.webp" aria-label="Open OxCOVID19 paper figure">
+          <img src="assets/oxford.webp" alt="Figure from the Oxford OxCOVID19 database paper" width="825" height="824" loading="lazy" decoding="async">
+          <span class="thumb-label">OxCOVID19 · peer-reviewed multi-source database</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Nature Portfolio · Scientific Reports · peer-reviewed paper</p>
+          <h3>OxCOVID19 Database</h3>
+          <p class="card-summary">Published in <em>Scientific Reports</em>, the OxCOVID19 Database created a unified international resource connecting epidemiology, government responses, mobility, weather, administrative divisions and national statistics. The project transformed more than 50 heterogeneous official sources into geographically and temporally comparable records for cross-country COVID-19 research.</p>
+          <div class="tags"><span>50+ official sources</span><span>Epidemiology</span><span>Government response</span><span>Mobility</span><span>Weather</span><span>Administrative geography</span><span>Country statistics</span><span>International comparison</span></div>
+          <details>
+            <summary>Paper scope and achievement</summary>
+            <div class="detail-content">
+              <ul>
+                <li>Combined epidemiological observations with policy measures, mobility, weather and demographic context in one research database.</li>
+                <li>Harmonized inconsistent reporting structures, dates and administrative geographies across more than 50 official data sources.</li>
+                <li>Supported comparable analysis across countries and subnational regions instead of leaving researchers to reconcile each source independently.</li>
+                <li>Created a reusable, extensible data foundation for studying transmission, interventions, mobility patterns and environmental conditions.</li>
+                <li>Published as an open, peer-reviewed data resource in <em>Scientific Reports</em>, a Nature Portfolio journal, in 2021.</li>
+              </ul>
+            </div>
+          </details>
+          <div class="card-actions">
+            <a class="button primary" href="https://doi.org/10.1038/s41598-021-88481-4" target="_blank" rel="noopener">Nature Portfolio paper ↗</a>
+            <a class="button" href="https://github.com/covid19db/fetchers-python" target="_blank" rel="noopener">Open-source database ↗</a>
           </div>
         </div>
-      </details>
-      <div class="card-footer">
-        <a class="btn btn-demo" href="https://cenoutreachdemo.onrender.com/dashboard/" target="_blank" rel="noopener">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Live Demo
-        </a>
-        <div class="demo-meta">
-          <span class="demo-login">Login: demo / demo123</span>
-          <span class="demo-note">Hosted on Render. Initial load may take about a minute while the app server and database wake up.</span>
+      </article>
+    </section>
+
+    <div class="section-heading" id="research">
+      <div><p>04</p><h2>Computational research &amp; applied ML</h2></div>
+      <span>Topology · neuroscience · optimization</span>
+    </div>
+
+    <section class="project-list" aria-label="Computational research projects">
+      <article class="project-card research">
+        <button class="card-thumb image-thumb" type="button" data-lightbox="assets/neurotopo.webp" aria-label="Open NeuroTopo diagram">
+          <img src="assets/neurotopo.webp" alt="NeuroTopo large-scale neuronal morphology pipeline" width="1536" height="1024" loading="lazy" decoding="async">
+          <span class="thumb-label">SWC morphology → topological descriptors → 41B pairwise comparisons</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Topological ML · HPC · published research</p>
+          <h3>NeuroTopo</h3>
+          <p class="card-summary">An HPC pipeline processing roughly 286,000 reconstructed neurons into topological descriptors and a 286,000 × 286,000 distance matrix for morphology analysis.</p>
+          <div class="tags"><span>Python</span><span>NumPy / SciPy</span><span>HDF5</span><span>SLURM</span><span>NetworkX</span></div>
+          <details><summary>Technical evidence</summary><div class="detail-content"><p>Eight Sholl step-function descriptors become 400 float32 features per neuron. Block-wise upper-triangular computation handles about 41 billion unique pairs; differential evolution learns descriptor weights over labeled classes.</p></div></details>
+          <div class="card-actions"><a class="button primary" href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Publication record ↗</a></div>
         </div>
-      </div>
-    </div>
-  </div>
+      </article>
 
-</div>
+      <div class="project-divider research-divider" aria-hidden="true"><span>Next research project</span></div>
 
-<!-- ══ AI & DATA ENGINEERING ══ -->
-<div class="section-sep applied">
-  <div class="section-sep-inner">
-    <div class="section-sep-title applied">AI &amp; Data Engineering</div>
-    <div class="section-sep-sub">Applied AI &nbsp;·&nbsp; Operations Research &nbsp;·&nbsp; Digital Humanities</div>
-  </div>
-</div>
-<div class="projects">
-
-  <div class="card applied">
-    <div class="card-image">
-      <img src="escriptorium.png" alt="eScriptorium HTR pipeline" loading="lazy" data-lightbox="escriptorium.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number applied">Applied AI · Digital Humanities</div>
-      <h2>eScriptorium HTR Pipeline — Historical Manuscript Digitization</h2>
-      <p class="card-desc">End-to-end Handwritten Text Recognition pipeline to digitize the Dublin Wide Streets Commissioners archive — 17,500 pages of 18th-century handwritten manuscripts. Achieved 86.4% character accuracy (CER 0.136) on pilot. Produced gold-standard PAGE-XML training datasets establishing the foundation for the first fully searchable digital edition of the archive.</p>
-      <div class="card-tags">
-        <span class="tag">eScriptorium</span><span class="tag">HTR</span><span class="tag">PAGE-XML</span>
-        <span class="tag">BLLA segmentation</span><span class="tag">Digital Humanities</span><span class="tag">Python</span>
-      </div>
-      <details>
-        <summary>Pipeline overview</summary>
-        <div class="details-content">
-          <ul>
-            <li>Configured and optimized eScriptorium for 17,500-page handwritten manuscript corpus</li>
-            <li>Document segmentation using BLLA base models with manual polygon corrections</li>
-            <li>Benchmarked multiple HTR models; pilot achieved CER 0.136 (86.4% char accuracy), WER 0.396</li>
-            <li>Gold-standard PAGE-XML datasets via meticulous line segmentation and transcription workflows</li>
-            <li>Foundation for first comprehensive searchable digital edition linked to scanned archive images</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Corpus</span><span class="spec-val">17,500 manuscript pages · Dublin Wide Streets Commissioners (1750s–1840s)</span>
-            <span class="spec-key">Accuracy</span><span class="spec-val">CER 0.136 (86.4% char) · WER 0.396 on pilot set</span>
-            <span class="spec-key">Output</span><span class="spec-val">Gold-standard PAGE-XML · scalable HTR training datasets</span>
-          </div>
+      <article class="project-card research">
+        <button class="card-thumb image-thumb" type="button" data-lightbox="assets/NeuronAtlas.webp" aria-label="Open NeuronAtlas diagram">
+          <img src="assets/NeuronAtlas.webp" alt="NeuronAtlas retrieval and visualization architecture" width="1402" height="1121" loading="lazy" decoding="async">
+          <span class="thumb-label">Morphology search, retrieval and interactive exploration</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Scientific platform · vector search</p>
+          <h3>NeuronAtlas</h3>
+          <p class="card-summary">A searchable neuronal morphology platform connecting structured metadata, learned representations and interactive visualization for scientific comparison.</p>
+          <div class="tags"><span>FastAPI</span><span>PostgreSQL</span><span>pgvector</span><span>Embeddings</span><span>Scientific visualization</span></div>
+          <details><summary>Technical evidence</summary><div class="detail-content"><p>Combines metadata filtering and representation-based similarity search, then returns traceable neuron records and morphology visualizations through a reproducible service layer.</p></div></details>
         </div>
-      </details>
-      <div class="card-footer">
-        <span class="btn-private">Private Archive Project</span>
-      </div>
-    </div>
-  </div>
+      </article>
 
-  <div class="card applied">
-    <div class="card-image">
-      <img src="inventory_solver.png" alt="Inventory Solver architecture" loading="lazy" data-lightbox="inventory_solver.png" />
-      <div class="card-image-overlay"></div>
-    </div>
-    <div class="card-body">
-      <div class="card-number applied">Applied OR · Decision Support · Web Migration</div>
-      <h2>Inventory Solver — Browser-Based Operations Research Platform</h2>
-      <p class="card-desc">Full migration of a legacy Visual Basic inventory management system into a modern, client-side decision-support web application. Supports 10+ deterministic and stochastic OR models — including dynamic lot sizing, joint replenishment, quantity discount, continuous/periodic review, and newsvendor — with all computation executing entirely in the browser. Deployed as an offline-capable PWA with zero backend dependency.</p>
-      <div class="card-tags">
-        <span class="tag">JavaScript</span><span class="tag">Operations Research</span><span class="tag">PWA</span>
-        <span class="tag">Service Worker</span><span class="tag">OR Solver Engine</span><span class="tag">Data-Driven Config</span>
-      </div>
-      <details>
-        <summary>Architecture deep-dive</summary>
-        <div class="details-content">
-          <h4>4-layer architecture</h4>
-          <ul>
-            <li><strong>UI Layer:</strong> Dynamic input forms auto-generated from model configuration files — UI adapts automatically to each model's parameter schema</li>
-            <li><strong>Application Layer:</strong> State management, input validation, event handling, results rendering (inventory.bundle.js)</li>
-            <li><strong>Model Config Layer:</strong> All models externalized to CSV (solvers.csv, inputs.csv, outputs.csv) — new models added without modifying application code</li>
-            <li><strong>Solver Engine:</strong> InventorySolverJS — deterministic and stochastic models, mathematical formulations, reproducible outputs, fully browser-side</li>
-          </ul>
-          <div class="spec-grid">
-            <span class="spec-key">Deterministic</span><span class="spec-val">Dynamic lot sizing · Economic lot scheduling · Joint replenishment · Quantity discounts · Resource-constrained optimization</span>
-            <span class="spec-key">Stochastic</span><span class="spec-val">Continuous review · Periodic review · Service-level optimization · Newsvendor (single-period)</span>
-            <span class="spec-key">Deployment</span><span class="spec-val">Offline PWA · service-worker caching · vendor-bundled assets · cross-device</span>
-            <span class="spec-key">Origin</span><span class="spec-val">Full migration from legacy Visual Basic application</span>
-          </div>
+      <div class="project-divider applied-divider" aria-hidden="true"><span>Next applied project</span></div>
+
+      <article class="project-card applied">
+        <button class="card-thumb image-thumb" type="button" data-lightbox="assets/inventory_solver.webp" aria-label="Open Inventory Solver diagram">
+          <img src="assets/inventory_solver.webp" alt="Inventory Solver forecasting and optimization workflow" width="1402" height="1121" loading="lazy" decoding="async">
+          <span class="thumb-label">Demand signal → forecast → constrained inventory decision</span>
+        </button>
+        <div class="card-body">
+          <p class="card-kicker">Forecasting · optimization · decision support</p>
+          <h3>Inventory Solver</h3>
+          <p class="card-summary">An applied forecasting and optimization workflow that turns sales history and operational constraints into explainable inventory recommendations.</p>
+          <div class="tags"><span>Python</span><span>Forecasting</span><span>Optimization</span><span>Scenario analysis</span><span>Decision support</span></div>
+          <details><summary>Technical evidence</summary><div class="detail-content"><p>The workflow separates source data, demand estimation, constraint handling and recommendation output so assumptions and changes can be inspected instead of hidden inside a single score.</p></div></details>
+          <div class="card-actions"><a class="button primary" href="https://bitsdontbyte.github.io/ipsolver/" target="_blank" rel="noopener">Production app ↗</a></div>
         </div>
-      </details>
-      <div class="card-footer">
-        <a class="btn btn-demo" href="https://bitsdontbyte.github.io/ipsolver/" target="_blank" rel="noopener">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Launch App
-        </a>
-      </div>
-    </div>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Ahmad Farhat</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Project diagram preview">
+    <button type="button" class="lightbox-close" aria-label="Close preview">×</button>
+    <img src="" alt="Expanded project diagram">
   </div>
-
-</div>
-
-<!-- ══ ABOUT ══ -->
-<div class="section-sep" style="margin-top:40px; margin-bottom:0;">
-  <div class="section-sep-inner">
-    <div class="section-sep-title" style="color:var(--muted); font-size:0.85rem; letter-spacing:2px;">About</div>
-  </div>
-</div>
-<div class="about-section" style="margin-top:32px;">
-  <h3>Ahmad Farhat</h3>
-  <p>Data engineer, machine learning practitioner, and AI systems architect with expertise spanning the full ML lifecycle — from distributed data pipeline design and large-scale processing to model training, productionization, and MLOps. Experienced deploying production AI platforms, institutional analytics systems, and research-grade ML infrastructure across cloud and on-premise environments.</p>
-  <p>Active researcher with peer-reviewed publications in Scopus-indexed Q1 journals — <a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></p>
-</div>
-
-<footer>
-  <p>Ahmad Farhat &nbsp;·&nbsp; +971-50-316-3664 &nbsp;·&nbsp;
-    <a href="mailto:ahmad.farhat.research@gmail.com">ahmad.farhat.research@gmail.com</a>
-    &nbsp;·&nbsp;
-    <a href="https://scholar.google.ae/citations?user=9aZrhYIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-  </p>
-</footer>
-
-<!-- Lightbox -->
-<div id="lightbox">
-  <button id="lightbox-close" aria-label="Close">&#x2715;</button>
-  <img id="lightbox-img" src="" alt="Full size diagram" />
-</div>
-
-<script>
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lightbox-img');
-  const lbClose = document.getElementById('lightbox-close');
-
-  document.querySelectorAll('[data-lightbox]').forEach(img => {
-    img.parentElement.addEventListener('click', () => {
-      lbImg.src = img.getAttribute('data-lightbox');
-      lbImg.alt = img.alt;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  function closeLightbox() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    lbImg.src = '';
-  }
-
-  lbClose.addEventListener('click', closeLightbox);
-  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
